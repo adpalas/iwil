@@ -1,0 +1,184 @@
+/* Default Style at 1920x1080 */
+
+/* General */
+
+.button {
+	margin-bottom: 5px;
+	border: 1px solid orange;
+	border-radius: 15px;
+	padding: 10px;
+	
+	text-decoration: none;
+	
+	font-size: 20px;
+}
+
+a {
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	text-decoration: none;
+}
+
+button {
+	background: none; 
+	color: #DAD7CD; /* TIMBERWOLF */
+}
+
+.button:focus, button:focus, a:focus {
+  outline: none;
+  box-shadow: none;
+}
+	
+html, body {
+	margin: 0;
+}
+
+body {
+	background: #EAF2EF; /* AZURE (X11/web color) */
+	font-family: 'Assistant', sans-serif;
+}
+
+#navContainer {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 10%;
+} 
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	
+	width: 75%;
+	height: 75%;
+	
+	margin-top: 10px;
+	border-radius: 5px;
+	
+	background: #363946; /* GUNMETAL */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	
+	font-size: 25px;
+}
+
+nav a {
+	font-weight: bold;
+}
+
+#navHeader, #navOptions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 15%;
+	height: 100%;
+}
+
+#mainSearchBar {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 75%;
+}
+
+#mainSearchBar h1 {
+	margin-bottom: 0;
+	font-weight: bold;
+	font-size: 125px;
+}
+
+#mainSearchBar p {
+	margin-top: 0;
+}
+
+#mainSearchBar h3 {
+	margin-bottom: 50px;
+}
+
+#mainSearchBar form{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin: 0;
+}
+
+#textInput {
+	width: 800px;
+	height: 40px;
+	
+	border: 1px solid #363946; /* GUNMETAL */
+	border-radius: 5px;
+	padding-left: 10px;
+	
+	font-size: 20px;
+}
+
+#submitButton {
+	width: 200px;
+	height: 40px;
+	margin-left: 10px;
+	border: 0;
+	border-radius: 5px;
+	
+	background: #363946; /* GUNMETAL */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	
+	text-decoration: none;
+	font-size: 20px;
+}
+
+#footer {
+	position: relative;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 15%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	background: #363946; /* GUNMETAL */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+}
+
+@media only screen and (max-width: 1540px or max-height: 900) {
+	
+	nav {
+
+		font-size: 20px;
+	}
+	
+	button {
+		font-size: 15px;
+	}
+	
+	#navHeader, #navOptions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 25%;
+	height: 100%;
+}
+
+	#navOptions {
+		width: 18%;
+	}
+}
+
+@media only screen and (max-width: 1280px) {
+	nav {
+
+		font-size: 15px;
+	}
+	
+	button {
+		font-size: 20px;
+	}
+	
+	#textInput {
+		width: 700px;
+	}
+
+	#submitButton {
+		width: 150px;
+	}
+}

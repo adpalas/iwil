@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<title>I.W.I.L.</title>
+		<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;800&family=Exo+2:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
+		
+		<link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<div id="navContainer">
+			<nav>
+				<div id="navHeader">
+					<a href="/"><i class="fas fa-film"></i> I.W.I.L.</a>
+				</div>
+				<div id="navOptions">
+					<a href="/watch"><i class="fas fa-list"></i> My List</a>
+				</div>
+			</nav>
+		</div>
+
+		<div id="mainSearchBar">
+			<h1>I.W.I.L.</h1>
+			<p>
+				(I'll Watch It Later)
+			</p>
+			<h3>
+				The place for all your movie searching needs
+			</h3>
+
+			<form action="/search" method="GET">
+				<input id="textInput" type="text" placeholder="search for a movie title..." name="search" required>
+				<button id="submitButton" type="submit"><i class="fas fa-search"></i> Search</button>
+			</form>
+		</div>
+
+<%- include("partials/footer") %>

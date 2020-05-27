@@ -1,0 +1,65 @@
+<%- include("../partials/header") %>
+
+<div id="resultsContainer">
+	<h1> Results Page for: "<%= search %>"</h1>
+	<div id="resultsBody">
+		<div class="scrollContainer">
+			<a id="scrollLeft" class="scrollButtonFade" href="#"><i class="fas fa-arrow-left"></i></a>
+		</div>
+		
+		<div id="resultsContent" >
+			<% if(movieResults !== undefined) {%>
+				<% movieResults.forEach(function(movie, i){ %>
+					<div class="selection fade">
+						<div class="imgContainer">
+							<% if (movie["Poster"] === 'N/A') {%>
+								<div class="posterUnavailable"><i class="fas fa-images"></i><span>Poster Unavailable</span></div>
+							<%} else {%>
+								<img src="<%= movie["Poster"]%>" alt="Poster Unavailable">
+							<%}%>
+						</div>
+						<div class="selection-body">
+							<div class="selection-info">
+								<% if(movie["Title"].length > 45) {%>
+									<h5 class="selection-title"><%= movie["Title"].substring(0, 45) + "..."%></h5>
+								<%} else { %>
+									<h5 class="selection-title"><%= movie["Title"]%></h5>
+								<% } %>
+								
+								<% if(detailList[i].length >= 100) {%>
+									<p><%= detailList[i].substring(0, 100) + "..."%></p>
+								<%} else {%>
+									<p><%= detailList[i]%></p>
+								<% } %>
+							</div>
+							<div class="selection-options">
+								<% var flag = 0 %>
+								<% for(var i = 0; i < watchList.length; i++) {%>
+									<% if(watchList[i].imdbID === movie["imdbID"]) {%>
+										<button class="button" name="Remove" value="<%= movie["imdbID"]%>"><i class="fas fa-check"></i> Added!</button>
+										<%flag = 1;%>
+										<%break;%>
+									<%}%>
+								<%}%>
+								<% if (!flag) {%>
+									<button class="button" name="Add" value="<%= movie["imdbID"]%>"><i class="fas fa-plus"></i> Quick Add</button>
+								<%}%>
+								<a href="/search/<%= movie["imdbID"]%>" class="button">
+									<i class="fas fa-info-circle"></i> Details
+								</a>
+							</div>
+						</div>
+					</div>
+				<% }); %>
+			<% } else { %>
+				<h1> Try Asking Again.... </h1>
+			<%}%>
+		</div>
+		<div class="scrollContainer">
+			<a id="scrollRight" class="scrollButtonFade" href="#"><i class="fas fa-arrow-right"></i></a>
+		</div>
+		
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

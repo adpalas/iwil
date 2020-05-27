@@ -1,0 +1,92 @@
+<%- include("../partials/header") %>
+
+<div id="detailsSection">
+	<div id="detailsContainer">
+		<div id="detailsContent">
+			<div id="movie-body">
+				<div id="imgContainer">
+					<% if (results["Poster"] === 'N/A') {%>
+						<div id="posterUnavailable"><i class="fas fa-images"></i><span>Poster Unavailable</span></div>
+					<%} else {%>
+						<img src="<%= results["Poster"]%>" alt="Poster Unavailable">
+					<%}%>
+				</div>
+				<div id="movie-info">
+					<h2 id="movie-title"><%= results["Title"]%></h2>
+					<div id="movie-details">
+						<div class="detail">
+							<h4>Director(s)</h4>
+							<div class="detail-list">
+								<% const directorList = results["Director"].split(", "); %>
+								<% for(var i = 0; i < directorList.length; i++) {%>
+									<span><%= directorList[i] %></span>
+								<% } %>
+							</div>
+						</div>
+						<div class="detail">
+							<h4>Cast</h4>
+							<div class="detail-list">
+								<% const castList = results["Actors"].split(", "); %>
+								<% for(var i = 0; i < castList.length; i++) {%>
+									<span><%= castList[i] %></span>
+								<% } %>
+							</div>
+						</div>
+						<div class="detail"><h4>Year</h4><span><%= results["Year"]%></span></div>
+						<div class="detail">
+							<h4>Genre</h4>
+							<div class="detail-list">
+								<% const genreList = results["Genre"].split(", "); %>
+								<% for(var i = 0; i < genreList.length; i++) {%>
+									<span><%= genreList[i] %></span>
+								<% } %>
+							</div>
+						</div>
+						<div class="detail"><h4>Rated</h4><span><%= results["Rated"]%></span></div>
+						<div class="detail"><h4>Runtime</h4><span><%= results["Runtime"]%></span></div>
+					</div>
+					<p><%= results["Plot"]%></p>
+				</div>
+			</div>
+			<div id="movie-options">
+				<div id="addToList">
+					<% var flag = 0 %>
+					<% for(var i = 0; i < watchList.length; i++) {%>
+						<% if(watchList[i].imdbID === results["imdbID"]) {%>
+							<button class="button" name="Remove" value="<%= results["imdbID"]%>"><i class="fas fa-check"></i> Added to Watchlist</button>
+							<%flag = 1;%>
+							<%break;%>
+						<%}%>
+					<%}%>
+					<% if (!flag) {%>
+						<button class="button" name="Add" value="<%= results["imdbID"]%>"><i class="fas fa-plus"></i> Add to Watchlist</button>
+					<%}%>
+				</div>
+				<div id="movie-providers">
+					<% if (providers.length === 0) {%>
+						<p>
+							This selection is currently unavailable on all streaming platforms.
+						</p>
+					<%} else { %>
+						<p>
+							Currently Availble on:
+						</p>
+						<% providers.forEach(function(provider) {%>
+							<a class="button" href="<%= provider["url"]%>">
+								<div class="iconContainer">
+									<% if(provider["display_name"] === "Disney+") {%> <!-- Disney plus's icon returns a 404..  -->
+										<h4><%= provider["display_name"]%></h4>
+									<%} else {%>
+										<img src="<%= provider["icon"]%>" alt="<%= provider["display_name"]%>">
+									<% } %>
+								</div>
+							</a>
+						<%});%>
+					<%}%>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

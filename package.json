@@ -1,0 +1,20 @@
+{
+  "name": "movie_search_app",
+  "version": "1.0.0",
+  "description": "A simple web app that will use API from OMDb to request movie information from imdb.com.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aaron Palas",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.2",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.9.13",
+    "request": "^2.88.2"
+  }
+}
