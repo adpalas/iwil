@@ -1,4 +1,4 @@
-# I.W.I.L - I'll Watch it Later
+# I.W.I.L. - I'll Watch it Later
 
 An web application that utilizes web api to retrieve movie details and whether they are availble on streaming and/or web store plaforms. Successful searches can be selected and saved to a watchlist if desired.
 
@@ -8,7 +8,7 @@ An web application that utilizes web api to retrieve movie details and whether t
 
 * Utilizes Node.js and MongoDb
 
-* This can be done more quickly by creating a subscription with Cloud IDE service [GoormIDE](https://ide.goorm.io/).
+* This can be setup quickly by creating a subscription with Cloud IDE service [GoormIDE](https://ide.goorm.io/).
 	* This service will provide free containers that contain Ubuntu and node.js pre-installed.
 
 ## Built With

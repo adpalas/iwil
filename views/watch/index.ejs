@@ -1,42 +1,64 @@
 <%- include("../partials/header") %>
 
-<div id="watchContainer">
-	<h1>My Watch List</h1>
-	<div id="watchBody">
-		<div id="watchContent" >
-			<% if(watchList !== undefined && movieDetails !== undefined) {%>
-				<% movieDetails.forEach(function(movie, i){ %>
-					<div class="watch-selection">
-						<div class="imgContainer">
-							<% if (movie["Poster"] === 'N/A') {%>
-								<div class="posterUnavailable"><i class="fas fa-images"></i><span>Poster Unavailable</span></div>
-							<%} else {%>
-								<img src="<%= movie["Poster"]%>" alt="Poster Unavailable">
-							<%}%>
-						</div>
-						<div class="watch-selection-body">
-							<div class="watch-selection-info">
-								<% if(movie["Title"].length > 50) {%>
-									<h5 class="watch-selection-title"><%= movie["Title"].substring(0, 50) + "..."%></h5>
-								<%} else { %>
-									<h5 class="watch-selection-title"><%= movie["Title"]%></h5>
-								<% } %>
-								<p><i>Added <%= watchList[i].dateAdded.toDateString()%></i></p>
+<div id="watchlistsContainer">
+	<h1> My WatchLists </h1>
+	<div id="watchlistsBody">
+		<div id="watchlistsContent" >
+			<div class="watchlistsRow">
+				<div id="addList">
+					<div id="iconContainer">
+						<a href="/watch/new"><i class="fas fa-plus"></i></a>
+					</div>
+				</div>
+				<% if(watchlists.length > 0) {%>
+					<% for(var i = 0; i < watchlists.length; i++) {%>
+						<%if(i !== 5) {%>
+							<div class="watchlist-selection">
+								<div class="watchlist-content">
+									<a href="/watch/show">
+										<h4><%= watchlists[i].name%></h4>
+									</a>
+								</div>
 							</div>
-							<div class="watch-selection-options">
-								<form action="/watch/<%= movie["imdbID"]%>?_method=DELETE" method="POST">
-									<input type="text" name="fromWatchList" value="true">
-									<button class="button" name="Remove"><i class="fas fa-check"></i> Remove </button>
-								</form>
-								<a href="/search/<%= movie["imdbID"]%>" class="button">
-									<i class="fas fa-info-circle"></i> Details
+						<%}else{%>
+							<%break;%>
+						<%}%>
+					<%}%>
+				<%}%>
+			</div>
+			<% if(watchlists.length > 5) {%>
+				<% const remainingLists = watchlists.length - 5; %>
+				<% const numberOfRows = Math.floor(remainingLists/6) + remainingLists%6; %>
+				<% var index = 5; %>
+			
+				<% if (remainingLists < 6) { %>
+					<div class="watchlistsRow">
+					<% for(var i = 0; i < remainingLists; i++) {%>
+						<div class="watchlist-selection">
+							<div class="watchlist-content">
+								<a href="#">
+									<h4><%= watchlists[index+i].name %></h4>
 								</a>
 							</div>
 						</div>
+					<%}%>
 					</div>
-				<% }); %>
-			<% } else { %>
-				<h1> Try Asking Again.... </h1>
+				<%} else { %>
+					<% for(var i = 0; i < numberOfRows; i++) {%>
+						<div class="watchlistsRow">
+						<% for(var j = 0; j < 6; j++) {%>
+							<div class="watchlist-selection">
+								<div class="watchlist-content">
+									<a href="#">
+										<h4><%= watchlists[index].name%></h4>
+									</a>
+								</div>
+							</div>
+							<% if(index !== watchlists.length - 1){index++} else{break;}; %>
+						<%}%>
+						</div>
+					<%}%>
+				<%}%>
 			<%}%>
 		</div>
 	</div>

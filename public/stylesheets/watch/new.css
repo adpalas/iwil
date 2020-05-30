@@ -1,0 +1,64 @@
+#newWatchListSection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 65%;
+}
+
+#newWatchlistContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+	width: 50%;
+	min-height: 50%;
+	
+	padding-top: 45;
+	border-radius: 15px;
+	
+	background: #363946; /* GUNMETAL */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+}
+
+#formContainer form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#formContainer form input, #formContainer form textarea {
+	width: 800px;
+	height: 40px;
+	
+	border: 1px solid #363946; /* GUNMETAL */
+	border-radius: 5px;
+	
+	outline: none;
+	box-shadow: none;
+	
+	font-size: 20px;
+}
+
+form textarea {
+	min-height: 100px;
+	max-height: 300px;
+	
+	margin-top: 10px;
+	
+	resize: vertical;
+    overflow: auto;
+}
+
+#newWatchlistButton {
+	width: 200px;
+	height: 40px;
+	margin-top: 10px;
+	border: 1px solid orange;
+	border-radius: 5px;
+	/* background: #363946; /* GUNMETAL */ */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	
+	text-decoration: none;
+	font-size: 20px;
+}

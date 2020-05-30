@@ -1,10 +1,12 @@
 /* Javascript Declarations */
 
-const mainSearchBar 	= document.querySelector("#mainSearchBar"),
-	  mainSearchBarForm = document.querySelector("#mainSearchBar form"),
-	  resultsContainer 	= document.querySelector("#resultsContainer"),
-	  detailsSection 	= document.querySelector("#detailsSection"),
-	  watchContainer 	= document.querySelector("#watchContainer");
+const mainSearchBar 		= document.querySelector("#mainSearchBar"),
+	  mainSearchBarForm 	= document.querySelector("#mainSearchBar form"),
+	  resultsContainer 		= document.querySelector("#resultsContainer"),
+	  detailsSection 		= document.querySelector("#detailsSection"),
+	  watchlistsContainer 	= document.querySelector("#watchlistsContainer"),
+	  watchContainer 		= document.querySelector("#watchContainer"),
+	  newWatchlistContainer = document.querySelector("#newWatchlistContainer");
 
 const buttonStates = {
 	indexPage: {
@@ -155,7 +157,6 @@ if (resultsContainer !== null){
 /* search/show */
 
 if (detailsSection !== null){
-	console.log(resultsContainer);
 	mainSearchBar.style.justifyContent = "start";
 	mainSearchBar.style.height = "10%";
 	mainSearchBarForm.style.height = "100%";
@@ -166,13 +167,29 @@ if (detailsSection !== null){
 
 /* watch/index */
 
+if (watchlistsContainer !== null){
+	mainSearchBar.style.justifyContent = "start";
+	mainSearchBar.style.height = "10%";
+	mainSearchBarForm.style.height = "100%";
+	watchlistsContainer.style.height = "65%";
+}
+
+/* watch/show */
+
 if (watchContainer !== null){
-	console.log(resultsContainer);
 	mainSearchBar.style.justifyContent = "start";
 	mainSearchBar.style.height = "10%";
 	mainSearchBarForm.style.height = "100%";
 	watchContainer.style.height = "65%";
 }
+
+if (newWatchlistContainer !== null){
+	mainSearchBar.style.justifyContent = "start";
+	mainSearchBar.style.height = "10%";
+	mainSearchBarForm.style.height = "100%";
+	// newWatchlistContainer.style.height = "65%";
+}
+
 
 
 
