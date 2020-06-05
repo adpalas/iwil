@@ -3,10 +3,9 @@
 /* General */
 
 .button {
-	margin-bottom: 5px;
 	border: 1px solid orange;
 	border-radius: 15px;
-	padding: 10px;
+	padding: 5px;
 	
 	text-decoration: none;
 	
@@ -18,10 +17,20 @@ a {
 	text-decoration: none;
 }
 
-button {
-	background: none; 
-	color: #DAD7CD; /* TIMBERWOLF */
+button span, button a span {
+	margin-left: 5px;
 }
+
+button {
+	background: none;
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	cursor: pointer;
+}
+
+button a {
+	width: 100%;
+	height: 100%;
+} /* Need this for all non nav anchor elements that are used as buttons */
 
 .button:focus, button:focus, a:focus {
   outline: none;
@@ -33,7 +42,8 @@ html, body {
 }
 
 body {
-	background: #EAF2EF; /* AZURE (X11/web color) */
+	/* background: #EAF2EF;  */
+	/* AZURE (X11/web color) */
 	font-family: 'Assistant', sans-serif;
 }
 
@@ -48,16 +58,14 @@ nav {
 	display: flex;
 	justify-content: space-between;
 	
-	width: 75%;
-	height: 75%;
+	width: 100%;
+	height: 100%;
 	
-	margin-top: 10px;
-	border-radius: 5px;
 	
-	background: #363946; /* GUNMETAL */
+	background: #010400; /* RICH BLACK */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 	
-	font-size: 25px;
+	font-size: 30px;
 }
 
 nav a {
@@ -73,10 +81,12 @@ nav a {
 }
 
 #mainSearchBar {
+	
+	
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	height: 75%;
+	height: 80%;
 }
 
 #mainSearchBar h1 {
@@ -105,7 +115,7 @@ nav a {
 	width: 800px;
 	height: 40px;
 	
-	border: 1px solid #363946; /* GUNMETAL */
+	border: 1px solid #010400; /* RICH BLACK */
 	border-radius: 5px;
 	padding-left: 10px;
 	
@@ -119,7 +129,7 @@ nav a {
 	border: 0;
 	border-radius: 5px;
 	
-	background: #363946; /* GUNMETAL */
+	background: #010400; /* RICH BLACK */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 	
 	text-decoration: none;
@@ -131,12 +141,12 @@ nav a {
 	left: 0;
 	bottom: 0;
 	width: 100%;
-	height: 15%;
+	height: 10%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	
-	background: #363946; /* GUNMETAL */
+	background: #010400; /* RICH BLACK */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 }
 

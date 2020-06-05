@@ -3,6 +3,8 @@ var mongoose = require("mongoose");
 var watchListSchema = new mongoose.Schema({
 	name: String,
 	description: String,
+	dateAdded: {type: Date, default: Date.now},
+	imageList: [String],
 	selection: [
 		{
 			type: mongoose.Schema.Types.ObjectId,

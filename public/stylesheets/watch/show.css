@@ -4,24 +4,59 @@
 /*  WATCH  */
 /***********/
 
-/* index.ejs */
+/* show.ejs */
 
 #watchContainer {
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
 	height: 0;
 }
 
+#watchContainerHeader {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	
+	width: 40%;
+	height: 100%;
+}
+
 #watchContainer h1 {
+	font-size: 40px;
 	font-weight: bold;
 }
 
+#watchListOptions {
+	display: flex;
+	
+}
+
+#watchListOptions button {
+	
+	width: 110px;
+	height: 60px;
+	border: 0;
+	
+	background: #363946; /* GUNMETAL */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	
+	font-size: 20px;
+	
+	opacity: 0.25;
+	transition: opacity 0.2s linear 0s;
+	
+}
+
+#watchListOptions button:hover {
+	opacity: 0.75;
+}	
+
 #watchBody {
 	display: flex;
-	width: 80%;
+	width: 60%;
 	height: 90%;
 }
 
@@ -59,7 +94,7 @@
 	color: #EAF2EF; /* AZURE (X11/web color) */
 }
 
-.imgContainer {
+.watch-selection .imgContainer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -127,18 +162,27 @@
 	margin-right: 25px;
 }
 
-.watch-selection-options form {
-	margin: 0;
-}
-
-.watch-selection-options form input {
-	display: none;
+.watch-selection-options form, watchListOptions {
+	margin-top: 10px;
 }
 
 .watch-selection-options button, .watch-selection-options a {
-		color: #EAF2EF; /* AZURE (X11/web color) */
-		font-size: 18px;
-	}
+	display: flex;
+	justify-content: start;
+	
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	font-size: 18px;
+}
+
+.watch-selection-options button i {
+	margin-left: 5px;
+}
+
+.watch-selection-options button {
+	width: 110px;
+}
+
+
 
 @media only screen and (max-width: 1540px), only screen and (max-height: 900px){
 	.watch-selection {
@@ -158,9 +202,17 @@
 	.watch-selection-info p {
 		font-size: 15px;
 	}
+	
+	.watch-selection-options form {
+		margin-bottom: 5px;
+	}
 
 	.watch-selection-options button, .watch-selection-options a {
 		font-size: 15px;
+	}
+	
+	.watch-selection-options button {
+		width: 95px;
 	}
 
 }

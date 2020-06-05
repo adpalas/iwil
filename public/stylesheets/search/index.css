@@ -7,6 +7,11 @@
 /* index.ejs */
 
 #resultsContainer {
+	
+	background-image: url("https://media.istockphoto.com/photos/people-in-the-cinema-auditorium-with-empty-white-screen-picture-id1131545834");
+	background-repeat: no-repeat;
+	background-position: center; /* Center the image */
+	background-size: cover; /* Resize the background image to cover the entire container */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -46,7 +51,7 @@
 	
 	border-radius: 5px;
 	
-	background: #363946; /* GUNMETAL */
+	background: #010400; /* RICH BLACK */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 	
 	font-size: 60px;
@@ -127,7 +132,7 @@
 	
 	border-radius: 15px;
 	
-	background: grey;
+	background: #363946;  /* GUNMETAL */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 	
 	font-size: 18px;
@@ -138,6 +143,8 @@
 }
 
 .selection .imgContainer {
+	display: flex;
+	justify-content: center;
 	width: 200px;
 	height: 250px;
 	border-radius: 10px;
@@ -148,9 +155,7 @@
 
 .selection-body {
 	display: none;
-	width: 300px;
-	height: 40%;
-	
+	height: 50%;
 	transition: 0.5s linear 0s;
 }
 
@@ -159,8 +164,10 @@
 }
 
 .selection-title {
-	margin-top: 0;
+	margin-top: 10px;
 	margin-bottom: 10px;
+	
+	text-align: center;
 	font-size: 20px;
 }
 
@@ -171,32 +178,32 @@
 .selection-options {
 	display: none;
 	width: 85%;
+	height: 15%;
 	
 	visibility: 0;
 	
 	transition: 0.5s linear 0s;
 }
 
-.selection-options button, .selection-options a {
+.selection-options button {
+	width: 45%;
+	height: 100%;
+	margin-bottom: 10px;
+	
 	color: #EAF2EF; /* AZURE (X11/web color) */
-	font-size: 20px;
+	font-size: 12px;
 }
 
 .selection:hover {
 	height: 95%;
 	
-	background: #363946C0; /* GUNMETAL with alpha. `C0` == 0.75 */
+	background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
+	/* background: #363946C0;  */
+	/* GUNMETAL with alpha. `C0` == 0.75 */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 }
 
-.selection:hover .imgContainer {
-	width: 280px;
-	height: 280px;
-}
 
-.selection:hover .posterUnavailable {
-	width: 70%;
-}
 
 .selection:hover .selection-body {
 	display: flex;
@@ -214,6 +221,29 @@
 	visibility: 1;
 }
 
+#addToWatchlist {
+	display: none; /* Hidden by default */
+	flex-direction: column;
+	align-items: center;
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */	
+}
+
+.watchlist-content button {
+	width: 100%;
+	height: 100%;
+	border: none;
+	outline: none;
+	
+	font-size: 25px;
+}
+
 @media only screen and (max-width: 1540px), only screen and (max-height: 900px){
 	
 	#scrollLeft, #scrollRight {
@@ -229,8 +259,6 @@
 
 		height: 200px;
 		padding-top: 10px;
-		padding-right: 5px;
-		padding-left: 5px;
 	}
 
 	.selection .imgContainer {
@@ -238,20 +266,22 @@
 		height: 180px;
 	}
 
+	.posterUnavailable {
+		font-size: 15px;
+	}
+	
 	.selection-body {
 		display: none;
-		width: 200px;
-		height: 45%;
 	}
 
 	.selection-body p {
 		font-size: 10px;
 	}
 
-	.selection:hover .imgContainer {
+	/* .selection:hover .imgContainer {
 		width: 200px;
 		height: 200px;
-	}
+	} */
 
 	.selection-title {
 		margin-top: 5px;
@@ -259,7 +289,15 @@
 		font-size: 15px;
 	}
 	
+	.selection-options {
+		flex-direction: column;
+		
+		height: 30%;
+	}
+	
 	.selection-options button, .selection-options a {
-		font-size: 12px;
+		width: 80%;
+		margin-bottom: 5px;
+		font-size: 10px;
 	}
 }

@@ -50,17 +50,7 @@
 			</div>
 			<div id="movie-options">
 				<div id="addToList">
-					<% var flag = 0 %>
-					<% for(var i = 0; i < watchList.length; i++) {%>
-						<% if(watchList[i].imdbID === results["imdbID"]) {%>
-							<button class="button" name="Remove" value="<%= results["imdbID"]%>"><i class="fas fa-check"></i> Added to Watchlist</button>
-							<%flag = 1;%>
-							<%break;%>
-						<%}%>
-					<%}%>
-					<% if (!flag) {%>
-						<button class="button" name="Add" value="<%= results["imdbID"]%>"><i class="fas fa-plus"></i> Add to Watchlist</button>
-					<%}%>
+					<button class="button" name="Add" value="<%= JSON.stringify(results) %>"><i class="fas fa-plus"></i> Add to Watchlist</button>
 				</div>
 				<div id="movie-providers">
 					<% if (providers.length === 0) {%>
@@ -87,6 +77,73 @@
 			</div>
 		</div>	
 	</div>
+</div>
+
+<div id="addToWatchlist">
+
+	<!-- Modal content -->
+	<div id="addToWatchlist-content">
+		<span id="close">X</span>
+		<div id="watchlistsContent" >
+			<div class="watchlistsRow">
+				<div id="addList">
+					<div id="iconContainer">
+						<a href="/watch/new"><i class="fas fa-plus"></i></a>
+					</div>
+				</div>
+				<% if(watchLists.length > 0) {%>
+					<% for(var i = 0; i < watchLists.length; i++) {%>
+						<%if(i !== 5) {%>
+							<div class="watchlist-selection">
+								<div class="watchlist-content">
+									<button name="Add" value="<%= watchLists[i]._id%>">
+										<h4><%= watchLists[i].name%></h4>
+									</button>
+								</div>
+							</div>
+						<%}else{%>
+							<%break;%>
+						<%}%>
+					<%}%>
+				<%}%>
+			</div>
+			<% if(watchLists.length > 5) {%>
+				<% const remainingLists = watchLists.length - 5; %>
+				<% const numberOfRows = Math.floor(remainingLists/6) + remainingLists%6; %>
+				<% var index = 5; %>
+			
+				<% if (remainingLists < 6) { %>
+					<div class="watchlistsRow">
+					<% for(var i = 0; i < remainingLists; i++) {%>
+						<div class="watchlist-selection">
+							<div class="watchlist-content">
+								<button name="Add" value="<%= watchLists[index+i]._id%>">
+									<h4><%= watchLists[index+i].name %></h4>
+								</button>
+							</div>
+						</div>
+					<%}%>
+					</div>
+				<%} else { %>
+					<% for(var i = 0; i < numberOfRows; i++) {%>
+						<div class="watchlistsRow">
+						<% for(var j = 0; j < 6; j++) {%>
+							<div class="watchlist-selection">
+								<div class="watchlist-content">
+									<button name="Add" value="<%= watchLists[index]._id%>">
+										<h4><%= watchLists[index].name%></h4>
+									</button>
+								</div>
+							</div>
+							<% if(index !== watchLists.length - 1){index++} else{break;}; %>
+						<%}%>
+						</div>
+					<%}%>
+				<%}%>
+			<%}%>
+		</div>
+	</div>
+
 </div>
 
 <%- include("../partials/footer") %>

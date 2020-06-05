@@ -8,59 +8,70 @@ const mainSearchBar 		= document.querySelector("#mainSearchBar"),
 	  watchContainer 		= document.querySelector("#watchContainer"),
 	  newWatchlistContainer = document.querySelector("#newWatchlistContainer");
 
-const buttonStates = {
-	indexPage: {
-		Added: { 
-			html: '<i class="fas fa-check"></i> Added!'
-		},
-		Removed: {
-			html: '<i class="fas fa-plus"></i> Quick Add'
-		}
-	},
-	showPage: {
-		Added: { 
-			html: '<i class="fas fa-check"></i> Added To WatchList!'
-		},
-		Removed: {
-			html: '<i class="fas fa-plus"></i> Add To WatchList'
-		}
-	}
-	
-}
-
 /* jQuery Declarations */
 
-function initAddOrRemoveFromWatchList(selector, pageName) {
-	$(selector).click(element => {
-		const imdbID 	= $(element.currentTarget).val(),
-			  state 	= $(element.currentTarget).attr("name");
+// function initAddOrRemoveFromWatchList(selector, pageName) {
+// 	$(selector).click(element => {
+// 		const imdbID 	= $(element.currentTarget).val(),
+// 			  state 	= $(element.currentTarget).attr("name");
+		
+// 		if (state === "Add") {
+// 			console.log("Adding " + imdbID + " to watch list.");
+// 			$.ajax({
+// 				url: '/watch/' + imdbID, 
+// 				type: 'POST', 
+// 			}).done(function(res) {
+// 				console.log(res["status"]);
+// 				$(element.currentTarget).attr("name", "Remove");
+// 				$(element.currentTarget).html(buttonStates[pageName].Added.html);
+// 			}).fail(function(err) {
+//       			console.log(err);
+//    			});
+// 		} else if (state === "Remove") {
+// 			console.log("Removing " + imdbID + " from watch list.");
+// 			$.ajax({
+// 				url: '/watch/' + imdbID, 
+// 				type: 'DELETE', 
+// 			}).done(function(res) {
+// 				console.log(res["status"]);
+// 				$(element.currentTarget).attr("name", "Add");
+// 				$(element.currentTarget).html(buttonStates[pageName].Removed.html);
+// 			}).fail(function(err) {
+//       			console.log(err);
+//    			});
+// 		}
+// 	}); // jquery function for handling POST/DELETE requests for the watch CREATE/DESTROY routes
+// }
+
+function addToWatchlist(openPopup) {
+	$(openPopup).click(element => {
+		const selection		= $(element.currentTarget).val(),
+			  state 		= $(element.currentTarget).attr("name");
+		
 		
 		if (state === "Add") {
-			console.log("Adding " + imdbID + " to watch list.");
-			$.ajax({
-				url: '/watch/' + imdbID, 
-				type: 'POST', 
-			}).done(function(res) {
-				console.log(res["status"]);
-				$(element.currentTarget).attr("name", "Remove");
-				$(element.currentTarget).html(buttonStates[pageName].Added.html);
-			}).fail(function(err) {
-      			console.log(err);
-   			});
-		} else if (state === "Remove") {
-			console.log("Removing " + imdbID + " from watch list.");
-			$.ajax({
-				url: '/watch/' + imdbID, 
-				type: 'DELETE', 
-			}).done(function(res) {
-				console.log(res["status"]);
-				$(element.currentTarget).attr("name", "Add");
-				$(element.currentTarget).html(buttonStates[pageName].Removed.html);
-			}).fail(function(err) {
-      			console.log(err);
-   			});
-		}
-	}); // jquery function for handling POST/DELETE requests for the watch CREATE/DESTROY routes
+			$(".watchlist-content button").click(element => {
+				const id = $(element.currentTarget).val();
+				
+				console.log("Adding " + JSON.parse(selection).imdbID + " to watchlist " + id);
+				$.ajax({
+					url: '/watch/' + id + '/selection', 
+					type: 'POST',
+					data: {selection: JSON.parse(selection)},
+				}).done(function(res) {
+					console.log(res["status"]);
+					
+					$("#addToWatchlist").each(function(){
+						$(this).css("display", "none");
+					});	
+					
+					$(".watchlist-content button").off(); // Don't forget to remove event handler to avoid multiple db writes
+				}).fail(function(err) {
+					console.log(err);
+				});
+			});
+		} 
+	});
 }
 
 /* search/index */
@@ -71,7 +82,40 @@ if (resultsContainer !== null){
 	mainSearchBar.style.justifyContent = "start";
 	mainSearchBar.style.height = "10%";
 	mainSearchBarForm.style.height = "100%";
-	resultsContainer.style.height = "65%";
+	resultsContainer.style.height = "70%";
+	
+	// Get the modal
+	var modal = document.querySelector("#addToWatchlist");
+
+	// Get the button that opens the modal
+	var addToWatchlistButton = document.querySelectorAll(".addToWatchlistButton");
+
+	// Get the <span> element that closes the modal
+	var span = document.querySelector("#close");
+
+	console.log(addToWatchlistButton);
+	
+	// When the user clicks on the button, open the modal
+	addToWatchlistButton.forEach((elm) => {
+		elm.onclick = function() {
+			modal.style.display = "flex";
+		}
+	});
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	  modal.style.display = "none";
+		$(".watchlist-content button").off(); // Don't forget to remove event handler to avoid multiple db writes
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	  if (event.target == modal) {
+		modal.style.display = "none";
+		  $(".watchlist-content button").off(); // Don't forget to remove event handler to avoid multiple db writes
+	  }
+	}
+
 	
 	/* jQuery */
 	
@@ -145,12 +189,12 @@ if (resultsContainer !== null){
 			  scrollLeft: endOffset
 			}, 1000);
 		} // When clicked, always check the current position of the scroll bar for the resultsContent to decide how far we scroll
-		
-		
-
 	}); // Applies to the scroll right button on the right side of the resultsContent div
 	
-	initAddOrRemoveFromWatchList(".selection-options button", "indexPage");
+	// initAddOrRemoveFromWatchList(".selection-options button", "indexPage");
+	
+	addToWatchlist(".addToWatchlistButton");
+	
 	
 } // When on the results page, run some dynamic style changes and animations if desired here. 
 
@@ -160,9 +204,37 @@ if (detailsSection !== null){
 	mainSearchBar.style.justifyContent = "start";
 	mainSearchBar.style.height = "10%";
 	mainSearchBarForm.style.height = "100%";
-	detailsSection.style.height = "65%";
+	detailsSection.style.height = "70%";
 	
-	initAddOrRemoveFromWatchList("#movie-options button", "showPage");
+	// Get the modal
+	var modal = document.querySelector("#addToWatchlist");
+
+	// Get the button that opens the modal
+	var addToWatchlistButton = document.querySelector("#addToList button");
+
+	// Get the <span> element that closes the modal
+	var span = document.querySelector("#close");
+
+	// When the user clicks on the button, open the modal
+	addToWatchlistButton.onclick = function() {
+	  modal.style.display = "flex";
+	}
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	  modal.style.display = "none";
+		$(".watchlist-content button").off(); // Don't forget to remove event handler to avoid multiple db writes
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	  if (event.target == modal) {
+		modal.style.display = "none";
+		  $(".watchlist-content button").off(); // Don't forget to remove event handler to avoid multiple db writes
+	  }
+	}
+	
+	addToWatchlist("#addToList button");
 }
 
 /* watch/index */
@@ -171,7 +243,7 @@ if (watchlistsContainer !== null){
 	mainSearchBar.style.justifyContent = "start";
 	mainSearchBar.style.height = "10%";
 	mainSearchBarForm.style.height = "100%";
-	watchlistsContainer.style.height = "65%";
+	watchlistsContainer.style.height = "70%";
 }
 
 /* watch/show */
@@ -180,7 +252,10 @@ if (watchContainer !== null){
 	mainSearchBar.style.justifyContent = "start";
 	mainSearchBar.style.height = "10%";
 	mainSearchBarForm.style.height = "100%";
-	watchContainer.style.height = "65%";
+	watchContainer.style.height = "70%";
+	
+	
+	
 }
 
 if (newWatchlistContainer !== null){
@@ -189,7 +264,3 @@ if (newWatchlistContainer !== null){
 	mainSearchBarForm.style.height = "100%";
 	// newWatchlistContainer.style.height = "65%";
 }
-
-
-
-

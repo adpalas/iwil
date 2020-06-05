@@ -5,9 +5,9 @@
 	<div id="newWatchlistContainer">
 		<div id="formContainer">
 			<form action="/watch" method="POST" id="newWLForm">
-				<input type="text" name="name" placeholder="name" required>
-				<textarea name="description" placeholder="description" form="newWLForm"></textarea>
-				<button id="newWatchlistButton">Add</button>
+				<input type="text" name="newWatchList[name]" placeholder="name" required>
+				<textarea name="newWatchList[description]" placeholder="description" form="newWLForm"></textarea>
+				<button id="newWatchlistButton"><i class="fas fa-plus"></i><span>Add</span></button>
 			</form>
 		</div>
 	</div>

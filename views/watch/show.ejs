@@ -1,42 +1,55 @@
 <%- include("../partials/header") %>
 
 <div id="watchContainer">
-	<h1>My Watch List</h1>
+	<div id="watchContainerHeader">
+		<h1><%= watchList.name %></h1>
+		<p><i>Created <%= watchList.dateAdded.toDateString()%></i></p>
+		<p><%= watchList.description%></p>
+		<div id="watchListOptions">
+			<!-- <button class="button"><i class="fas fa-ellipsis-h"></i></button> -->
+			<button class="button" name="Edit">
+				<a href="/watch/<%=watchList._id%>/edit"><i class="fas fa-edit"></i><span>Edit</span></a>
+			</button>
+			<form action="/watch/<%=watchList._id%>?_method=DELETE" method="POST">
+				<button class="button" name="Remove"><i class="fas fa-trash-alt"></i><span>Remove</span></button>
+			</form>
+		</div>
+	</div>
+	
 	<div id="watchBody">
 		<div id="watchContent" >
-			<% if(watchList !== undefined && movieDetails !== undefined) {%>
-				<% movieDetails.forEach(function(movie, i){ %>
+			<% if(selectionList.length > 0) {%>
+				<% selectionList.forEach(function(movie){ %>
 					<div class="watch-selection">
 						<div class="imgContainer">
-							<% if (movie["Poster"] === 'N/A') {%>
+							<% if (movie["image"] === 'N/A') {%>
 								<div class="posterUnavailable"><i class="fas fa-images"></i><span>Poster Unavailable</span></div>
 							<%} else {%>
-								<img src="<%= movie["Poster"]%>" alt="Poster Unavailable">
+								<img src="<%= movie["image"]%>" alt="Poster Unavailable">
 							<%}%>
 						</div>
 						<div class="watch-selection-body">
 							<div class="watch-selection-info">
-								<% if(movie["Title"].length > 50) {%>
-									<h5 class="watch-selection-title"><%= movie["Title"].substring(0, 50) + "..."%></h5>
+								<% if(movie["title"].length > 50) {%>
+									<h5 class="watch-selection-title"><%= movie["title"].substring(0, 50) + "..."%></h5>
 								<%} else { %>
-									<h5 class="watch-selection-title"><%= movie["Title"]%></h5>
+									<h5 class="watch-selection-title"><%= movie["title"]%></h5>
 								<% } %>
-								<p><i>Added <%= watchList[i].dateAdded.toDateString()%></i></p>
+								<p><i>Added <%= movie.dateAdded.toDateString()%></i></p>
 							</div>
 							<div class="watch-selection-options">
-								<form action="/watch/<%= movie["imdbID"]%>?_method=DELETE" method="POST">
-									<input type="text" name="fromWatchList" value="true">
-									<button class="button" name="Remove"><i class="fas fa-check"></i> Remove </button>
+								<button class="button"> 
+									<a href="/search/<%= movie["imdbID"]%>"><i class="fas fa-info-circle"></i><span>Details</span></a>
+								</button>
+								<form action="/watch/<%=watchList._id%>/selection/<%=movie._id%>?_method=DELETE" method="POST">
+									<button class="button" name="Remove"><i class="fas fa-trash-alt"></i><span>Remove</span></button>
 								</form>
-								<a href="/search/<%= movie["imdbID"]%>" class="button">
-									<i class="fas fa-info-circle"></i> Details
-								</a>
 							</div>
 						</div>
 					</div>
 				<% }); %>
 			<% } else { %>
-				<h1> Try Asking Again.... </h1>
+				<h1> Empty </h1>
 			<%}%>
 		</div>
 	</div>

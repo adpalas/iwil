@@ -21,7 +21,7 @@
 	height: 90%;
 	border-radius: 15px;
 	
-	background: #363946; /* GUNMETAL */
+	background: #010400; /* RICH BLACK */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 }
 
@@ -73,7 +73,7 @@
 	margin-bottom: 20px;
 	border-radius: 15px;
 	
-	background: grey;
+	background: #363946;  /* GUNMETAL */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 	
 	font-size: 25px;
