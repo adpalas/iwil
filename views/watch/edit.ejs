@@ -1,13 +1,15 @@
 <%- include("../partials/header") %>
 
 <div id="newWatchlistSection">
-	<h1>Edit <%= watchList.name%></h1>
+	<div id="containerHeader">
+		<h1>Edit <%= watchList.name%></h1>
+	</div>
 	<div id="newWatchlistContainer">
 		<div id="formContainer">
 			<form action="/watch/<%= watchList._id%>?_method=PUT" method="POST" id="newWLForm">
 				<input type="text" name="watchList[name]" value="<%= watchList.name%>" required>
-				<textarea name="watchList[description]" value="<%= watchList.description%>" form="newWLForm"></textarea>
-				<button id="newWatchlistButton"><i class="fas fa-edit"></i><span>Update</span></button>
+				<textarea name="watchList[description]" form="newWLForm"><%= watchList.description%></textarea>
+				<button id="newWatchlistButton" class="button"><i class="fas fa-edit"></i><span>Update</span></button>
 			</form>
 		</div>
 	</div>

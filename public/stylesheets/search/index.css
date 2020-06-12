@@ -7,24 +7,20 @@
 /* index.ejs */
 
 #resultsContainer {
-	
-	background-image: url("https://media.istockphoto.com/photos/people-in-the-cinema-auditorium-with-empty-white-screen-picture-id1131545834");
-	background-repeat: no-repeat;
-	background-position: center; /* Center the image */
-	background-size: cover; /* Resize the background image to cover the entire container */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	height: 0;
+	height: 80%;
 }
 
 #resultsContainer h1 {
-	
-	margin-top: 0;
-	margin-bottom: 30px;
-	
+	margin-bottom: 5px;
+	padding: 0 10px;
+	border-radius: 5px;
+	background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
+	color: #EAF2EF; /* AZURE (X11/web color) */
 	font-weight: bold;
 }
 
@@ -97,7 +93,7 @@
 	height: 300px;
 	border: 0;
 	border-radius: 5px;
-	padding-top: 20px;
+	/* padding-top: 20px; */
 	
 	transition: 0.1s linear 0s;
 }
@@ -127,7 +123,7 @@
 	justify-content: center;
 	align-items: center;
 	
-	width: 90%;
+	width: 85%;
 	height: 100%;
 	
 	border-radius: 15px;
@@ -147,10 +143,30 @@
 	justify-content: center;
 	width: 200px;
 	height: 250px;
-	border-radius: 10px;
+	padding-top: 20px;
+	/* border-radius: 10px; */
 	
+}
+
+
+.selection:hover .imgContainer {
+	padding-top: 0;
+	width: 200px;
+	height: 300px;
+
 	transition: 0.2s linear 0s;
-	
+}
+
+.selection:hover img {
+	border-radius: 5px;
+	transition: 0.2s linear 0s;
+}
+
+.selection:hover .posterUnavailable {
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	transition: 0.2s linear 0s;
 }
 
 .selection-body {
@@ -164,8 +180,8 @@
 }
 
 .selection-title {
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 	
 	text-align: center;
 	font-size: 20px;
@@ -186,7 +202,7 @@
 }
 
 .selection-options button {
-	width: 45%;
+	width: 48%;
 	height: 100%;
 	margin-bottom: 10px;
 	
@@ -203,8 +219,6 @@
 	color: #EAF2EF; /* AZURE (X11/web color) */
 }
 
-
-
 .selection:hover .selection-body {
 	display: flex;
 	flex-direction: column;
@@ -217,31 +231,18 @@
 	justify-content: space-between;
 	align-items: center;
 	
-	
 	visibility: 1;
 }
 
-#addToWatchlist {
-	display: none; /* Hidden by default */
-	flex-direction: column;
-	align-items: center;
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	background-color: rgb(0,0,0); /* Fallback color */
-	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */	
+.selection-options button:hover {
+	border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
+	font-size: 15px;
+	transition: font-size 0.1s linear 0s;
 }
 
-.watchlist-content button {
-	width: 100%;
-	height: 100%;
-	border: none;
-	outline: none;
-	
-	font-size: 25px;
+.selection-options button:hover a i, .selection-options button:hover a span {
+	font-size: 15px;
+	transition: font-size 0.1s linear 0s;
 }
 
 @media only screen and (max-width: 1540px), only screen and (max-height: 900px){
@@ -258,16 +259,27 @@
 	.selection {
 
 		height: 200px;
-		padding-top: 10px;
+		/* padding-top: 10px; */
 	}
 
 	.selection .imgContainer {
 		width: 150px;
 		height: 180px;
+		
+		padding-top: 10px;
+	}
+	
+	.selection:hover .imgContainer {
+		padding-top: 0;
+		width: 150px;
+		height: 227px;
+		
+		transition: 0.2s linear 0s;
 	}
 
 	.posterUnavailable {
-		font-size: 15px;
+		
+		font-size: 12px;
 	}
 	
 	.selection-body {
@@ -275,7 +287,7 @@
 	}
 
 	.selection-body p {
-		font-size: 10px;
+		font-size: 12px;
 	}
 
 	/* .selection:hover .imgContainer {
@@ -299,5 +311,16 @@
 		width: 80%;
 		margin-bottom: 5px;
 		font-size: 10px;
+	}
+	
+	.selection-options button:hover {
+		border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
+		font-size: 12px;
+		transition: font-size 0.1s linear 0s;
+	}
+	
+	.selection-options button:hover a i, .selection-options button:hover a span {
+		font-size: 12px;
+		transition: font-size 0.1s linear 0s;
 	}
 }

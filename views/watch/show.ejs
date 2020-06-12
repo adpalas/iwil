@@ -2,17 +2,41 @@
 
 <div id="watchContainer">
 	<div id="watchContainerHeader">
-		<h1><%= watchList.name %></h1>
-		<p><i>Created <%= watchList.dateAdded.toDateString()%></i></p>
-		<p><%= watchList.description%></p>
-		<div id="watchListOptions">
-			<!-- <button class="button"><i class="fas fa-ellipsis-h"></i></button> -->
-			<button class="button" name="Edit">
-				<a href="/watch/<%=watchList._id%>/edit"><i class="fas fa-edit"></i><span>Edit</span></a>
-			</button>
-			<form action="/watch/<%=watchList._id%>?_method=DELETE" method="POST">
-				<button class="button" name="Remove"><i class="fas fa-trash-alt"></i><span>Remove</span></button>
-			</form>
+		<div id="header-leftContainer">
+			<div id="header-imageContainer">
+				<%if(watchList.imageList.length === 0){%>
+					<div class="noImage"><i class="fas fa-film"></i></div>
+				<%}else if(watchList.imageList.length < 4) {%>
+					<div class="oneImage"><img src="<%= watchList.imageList[0] %>"></div>
+				<%} else {%>
+					<div class="imageRow">
+						<img src="<%= watchList.imageList[0] %>">
+						<img src="<%= watchList.imageList[1] %>">
+					</div>
+					<div class="imageRow">
+						<img src="<%= watchList.imageList[2] %>">
+						<img src="<%= watchList.imageList[3] %>">
+					</div>
+				<%}%>
+			</div>
+			<div id="watchListOptions">
+				<!-- <button class="button"><i class="fas fa-ellipsis-h"></i></button> -->
+				<button class="button" name="Edit">
+					<a href="/watch/<%=watchList._id%>/edit"><i class="fas fa-edit"></i><span>Edit</span></a>
+				</button>
+				<form action="/watch/<%=watchList._id%>?_method=DELETE" method="POST">
+					<button class="button" name="Remove"><i class="fas fa-trash-alt"></i><span>Remove</span></button>
+				</form>
+			</div>
+		</div>
+		<div id="header-detailsContainer">
+			<div id="mainDetailsContainer">
+				<h1><%= watchList.name %></h1>
+				<p><i>Created <%= watchList.dateAdded.toDateString()%></i></p>
+			</div>
+			<div id="descriptionContainer">
+				<p><%= watchList.description%></p>
+			</div>	
 		</div>
 	</div>
 	

@@ -10,44 +10,10 @@ const mainSearchBar 		= document.querySelector("#mainSearchBar"),
 
 /* jQuery Declarations */
 
-// function initAddOrRemoveFromWatchList(selector, pageName) {
-// 	$(selector).click(element => {
-// 		const imdbID 	= $(element.currentTarget).val(),
-// 			  state 	= $(element.currentTarget).attr("name");
-		
-// 		if (state === "Add") {
-// 			console.log("Adding " + imdbID + " to watch list.");
-// 			$.ajax({
-// 				url: '/watch/' + imdbID, 
-// 				type: 'POST', 
-// 			}).done(function(res) {
-// 				console.log(res["status"]);
-// 				$(element.currentTarget).attr("name", "Remove");
-// 				$(element.currentTarget).html(buttonStates[pageName].Added.html);
-// 			}).fail(function(err) {
-//       			console.log(err);
-//    			});
-// 		} else if (state === "Remove") {
-// 			console.log("Removing " + imdbID + " from watch list.");
-// 			$.ajax({
-// 				url: '/watch/' + imdbID, 
-// 				type: 'DELETE', 
-// 			}).done(function(res) {
-// 				console.log(res["status"]);
-// 				$(element.currentTarget).attr("name", "Add");
-// 				$(element.currentTarget).html(buttonStates[pageName].Removed.html);
-// 			}).fail(function(err) {
-//       			console.log(err);
-//    			});
-// 		}
-// 	}); // jquery function for handling POST/DELETE requests for the watch CREATE/DESTROY routes
-// }
-
 function addToWatchlist(openPopup) {
 	$(openPopup).click(element => {
 		const selection		= $(element.currentTarget).val(),
 			  state 		= $(element.currentTarget).attr("name");
-		
 		
 		if (state === "Add") {
 			$(".watchlist-content button").click(element => {
@@ -79,10 +45,10 @@ function addToWatchlist(openPopup) {
 /* Javascript */
 
 if (resultsContainer !== null){
-	mainSearchBar.style.justifyContent = "start";
-	mainSearchBar.style.height = "10%";
-	mainSearchBarForm.style.height = "100%";
-	resultsContainer.style.height = "70%";
+	// mainSearchBar.style.justifyContent = "start";
+	// mainSearchBar.style.height = "10%";
+	// mainSearchBarForm.style.height = "100%";
+	// resultsContainer.style.height = "80%";
 	
 	// Get the modal
 	var modal = document.querySelector("#addToWatchlist");
@@ -201,10 +167,10 @@ if (resultsContainer !== null){
 /* search/show */
 
 if (detailsSection !== null){
-	mainSearchBar.style.justifyContent = "start";
-	mainSearchBar.style.height = "10%";
-	mainSearchBarForm.style.height = "100%";
-	detailsSection.style.height = "70%";
+	// mainSearchBar.style.justifyContent = "start";
+	// mainSearchBar.style.height = "10%";
+	// mainSearchBarForm.style.height = "100%";
+	// detailsSection.style.height = "80%";
 	
 	// Get the modal
 	var modal = document.querySelector("#addToWatchlist");
@@ -235,32 +201,4 @@ if (detailsSection !== null){
 	}
 	
 	addToWatchlist("#addToList button");
-}
-
-/* watch/index */
-
-if (watchlistsContainer !== null){
-	mainSearchBar.style.justifyContent = "start";
-	mainSearchBar.style.height = "10%";
-	mainSearchBarForm.style.height = "100%";
-	watchlistsContainer.style.height = "70%";
-}
-
-/* watch/show */
-
-if (watchContainer !== null){
-	mainSearchBar.style.justifyContent = "start";
-	mainSearchBar.style.height = "10%";
-	mainSearchBarForm.style.height = "100%";
-	watchContainer.style.height = "70%";
-	
-	
-	
-}
-
-if (newWatchlistContainer !== null){
-	mainSearchBar.style.justifyContent = "start";
-	mainSearchBar.style.height = "10%";
-	mainSearchBarForm.style.height = "100%";
-	// newWatchlistContainer.style.height = "65%";
 }

@@ -12,15 +12,18 @@
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	height: 0;
+	height: 80%;
 }
 
 #watchlistsContainer h1 {
-	
-	margin-top: 0;
-	margin-bottom: 30px;
+	margin: 0;
+	padding: 0 5px;
+	border-radius: 5px;
 	
 	font-weight: bold;
+	
+	background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
+	color: #EAF2EF; /* AZURE (X11/web color) */
 }
 
 #watchlistsBody {
@@ -69,12 +72,31 @@
 	
 }
 
-.watchlist-selection h7{
-	display: flex;
-	justify-content: center;
+.watchlist-selection:hover .watchlist-content {
+	filter: brightness(100%);
+}
+
+.watchlist-selection-title {
+	height: 60px;
+	margin-top: 5px;
+	border-radius: 5px;
+	/* padding: 5px; */
 	
-	font-size: 25px;
-	color: #363946; /* GUNMETAL */
+	background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+}
+
+.watchlist-selection-title h7{
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+	text-align: center;
+	
+	word-break: break-word;
+}
+
+.watchlist-selection-title h7 a:hover {
+	text-decoration: underline;
 }
 
 .watchlist-content a, #iconContainer a{
@@ -83,6 +105,8 @@
 	align-items: center;
 	width: 100%;
 	height: 100%;
+	
+	border-radius: 10px;
 }
 
 #iconContainer {	
@@ -91,7 +115,9 @@
 	
 	border-radius: 10px;
 	
-	background: #363946; /* GUNMETAL */
+	/* background: #363946;  */
+	/* GUNMETAL */
+	background: #010400; /* RICH BLACK  with alpha. `C0` == 0.75 */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 	
 	font-size: 60px;
@@ -111,41 +137,55 @@
 	
 	border-radius: 10px;
 	
-	background: #363946; /* GUNMETAL */
+	/* background: #363946;  */
+	/* GUNMETAL */
+	background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 	
 	font-size: 60px;
+	
+	opacity: 1;
+}
+
+.watchlist-content:hover {
+	font-style: bold;
+	transition: 0.2s linear 0s;
 }
 
 .watchlist-body {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	width: 95%;
 	height: 95%;
 	
-	border-radius: 10px;
+	margin: 0 4px;
+	/* border-radius: 10px; */
 }
 
 .imageRow {
 	display: flex;
+	justify-content: center;
 	width: 100%;
 	height: 50%;
 }
 
 .imageRow img {
-	width: 50%;
-	height: 100%;
+	max-width: 50%;
+	max-height: 100%;
 }
 
 .oneImage {
 	display: flex;
+	justify-content: center;
 	width: 100%;
 	height: 100%;
 }
 
 .oneImage img{
-	width: 100%;
-	height: 100%;
+	max-width: 100%;
+	max-height: 100%;
 }
 
 .noImage {

@@ -1,7 +1,7 @@
  <html>
 	<head>
 		<title>I.W.I.L.</title>
-		<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;800&family=Exo+2:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;800&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
 		
 		<link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
 		<link href="/stylesheets/search/index.css" rel="stylesheet" type="text/css">
@@ -15,18 +15,26 @@
 		<div id="navContainer">
 			<nav>
 				<div id="navHeader">
-					<a href="/"><i class="fas fa-film"></i> I.W.I.L.</a>
+					<a href="/"><i class="fas fa-film"></i> IWIL</a>
 				</div>
 				<div id="navOptions">
-					<a href="/watch"><i class="fas fa-list"></i> My List</a>
+					<div id="navSearchBar">
+						<form action="/search" method="GET">
+							<input type="text" placeholder="search for a movie title..." name="search" required>
+							<button type="submit"><i class="fas fa-search"></i></button>
+						</form>
+					</div>
+					<div id="profileOptions">
+						<a href="/watch"><i class="fas fa-list"></i> My List</a>
+					</div>
 				</div>
 			</nav>
 		</div>
 		
-		<div class="container" id="mainSearchBar">
+		<!-- <div class="container" id="mainSearchBar">
 			<form action="/search" method="GET">
 				<input id="textInput" type="text" placeholder="search for a movie title..." name="search" required>
 				<button id="submitButton" type="submit"><i class="fas fa-search"></i> Search</button>
 			</form>
-		</div>
+		</div> -->
 		

@@ -11,7 +11,7 @@
 	align-items: center;
 	
 	width: 50%;
-	min-height: 50%;
+	min-height: 40%;
 	
 	padding-top: 45px;
 	border-radius: 15px;
@@ -43,7 +43,7 @@
 
 form textarea {
 	min-height: 200px;
-	max-height: 350px;
+	max-height: 450px;
 	
 	margin-top: 10px;
 	
@@ -55,13 +55,19 @@ form textarea {
 	width: 125px;
 	height: 40px;
 	margin-top: 10px;
-	border: 1px solid orange;
+	/* border: 1px solid orange; */
 	border-radius: 5px;
 	/* background: #363946; /* GUNMETAL */ */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 	
 	text-decoration: none;
 	font-size: 20px;
+}
+
+#newWatchlistButton:hover {
+	border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
+	font-size: 22px;
+	transition: font-size 0.1s linear 0s;
 }
 
 @media only screen and (max-width: 1540px), only screen and (max-height: 900px){

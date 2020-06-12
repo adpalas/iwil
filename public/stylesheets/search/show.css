@@ -10,6 +10,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	
+	height: 80%;
 }
 
 #detailsContainer {
@@ -19,9 +21,11 @@
 	
 	width: 75%;
 	height: 90%;
+	/* border: 2px solid #010400;  */
+	/* RICH BLACK */
 	border-radius: 15px;
 	
-	background: #010400; /* RICH BLACK */
+	background: #010400C0; /* RICH BLACK w/ 75% opacity */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 }
 
@@ -40,7 +44,6 @@
 #movie-body {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
 	width: 100%;
 	height: 90%;
 	
@@ -88,39 +91,84 @@
 	flex-direction: column;
 	
 	width: 75%;
+	height: 95%;
 	margin: 0 10px;
 }
 
 #movie-title {
-	margin-top: 0;
-	margin-bottom: 5px;
+	/* margin-top: 0; */
+	margin-bottom: 0px;
 	font-size: 35px;
 }
 
 
 #movie-details {
 	display: flex;
+	flex-direction: column;
 	justify-content: space-between;
+}
+
+#major-details {
+	display: flex;
+	align-items: center;
+	width: 50%;
+	/* height: 30px; */
+	margin-left: 10px;
+	
+	font-size: 15px;
+}
+
+#major-details div, #major-details span {
+	margin-right: 5px;
+}
+
+#rating {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	height: 20px;
+	border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
+	padding: 2px;
+	font-size: 15px;
+}
+
+#minor-details {
+	display: flex;
+	flex-direction: column;
+	margin-left: 10px;
 }
 
 .detail {
 	display: flex;
-	flex-direction: column;
 }
 
 .detail h4 {
 	margin: 0;
+	margin-right: 5px;
 	font-size: 20px;
-	text-decoration: underline; 
+	/* text-decoration: underline;  */
 }
 
 .detail-list {
 	display: flex;
-	flex-direction: column;
+	align-items: center;
+	font-size: 20px;
+}
+
+.detail-list span {
+	margin-right: 5px;
+}
+
+#plotContainer {
+	margin: 15px 0;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 #movie-info p {
-	margin: 5px 0;
+	margin: 0;
+	font-size: 18px;
 }
 
 #movie-options {
@@ -163,7 +211,9 @@
 	
 	height: 100%;
 	margin: 0 10px;
-	padding: 0 10px;;
+	padding: 0 10px;
+	
+	
 }
 
 .iconContainer {
@@ -183,6 +233,8 @@
 	height: 30px;
 	
 	margin: 0;
+	
+	font-size: 10px;
 	filter: brightness(500%);
 }
 
@@ -193,16 +245,20 @@
 	}
 	
 	#movie-info p {
-		font-size: 12px;
+		font-size: 15px;
 	}
 	
 	#movie-title {
-		font-size: 30px;
+		font-size: 35px;
 	}
 	
 	#movie-details {
 		display: flex;
 		width: 100%;
+	}
+	
+	#rating {
+		padding: 0 2px;
 	}
 	
 	.detail {
@@ -211,6 +267,12 @@
 	}
 	
 	.detail h4 {
+		font-size: 15px;
+	}
+	
+	.detail-list {
+		display: flex;
+		align-items: center;
 		font-size: 15px;
 	}
 	
