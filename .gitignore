@@ -1,0 +1,8 @@
+#Repositories
+
+node_modules/
+private/
+
+#Files
+
+.env
