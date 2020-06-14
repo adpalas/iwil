@@ -5,12 +5,12 @@
 		<h1> Results Page for: "<%= search %>"</h1>
 	</div>
 	<div id="resultsBody">
-		<div class="scrollContainer">
-			<a id="scrollLeft" class="scrollButtonFade" href="#"><i class="fas fa-arrow-left"></i></a>
-		</div>
-		
-		<div id="resultsContent" >
-			<% if(movieResults.length > 0) {%>
+		<% if(movieResults.length > 0) {%>
+			<div class="scrollContainer">
+				<a id="scrollLeft" class="scrollButtonFade" href="#"><i class="fas fa-arrow-left"></i></a>
+			</div>
+
+			<div id="resultsContent" >
 				<% movieResults.forEach(function(movie, i){ %>
 					<div class="selection fade">
 						<div class="imgContainer">
@@ -27,7 +27,7 @@
 								<%} else { %>
 									<h5 class="selection-title"><%= movie["Title"]%></h5>
 								<% } %>
-								
+
 								<% if(detailList[i].length >= 100) {%>
 									<p><%= detailList[i].substring(0, 100) + "..."%></p>
 								<%} else {%>
@@ -35,7 +35,9 @@
 								<% } %>
 							</div>
 							<div class="selection-options">
-								<button class="button addToWatchlistButton" name="Add" value="<%= JSON.stringify(movie) %>"><i class="fas fa-plus"></i><span>Add</span></button>
+								<% if(currentUser) { %> <!-- Checks if the res.locals.currentUser has been defined -->
+									<button class="button addToWatchlistButton" name="Add" value="<%= JSON.stringify(movie) %>"><i class="fas fa-plus"></i><span>Add</span></button>
+								<%}%>
 								<button class="button"> 
 									<a href="/search/<%= movie["imdbID"]%>"><i class="fas fa-info-circle"></i><span>Details</span></a>
 								</button>
@@ -43,13 +45,15 @@
 						</div>
 					</div>
 				<% }); %>
-			<% } else { %>
-				<h1> Try Asking Again.... </h1>
-			<%}%>
-		</div>
-		<div class="scrollContainer">
-			<a id="scrollRight" class="scrollButtonFade" href="#"><i class="fas fa-arrow-right"></i></a>
-		</div>
+			</div>
+			<div class="scrollContainer">
+				<a id="scrollRight" class="scrollButtonFade" href="#"><i class="fas fa-arrow-right"></i></a>
+			</div>
+		<% } else { %>
+			<div id="notFound">
+				<h1> No results found.. Try asking again! </h1>
+			</div>
+		<%}%>
 	</div>
 </div>
 

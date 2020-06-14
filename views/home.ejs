@@ -13,7 +13,14 @@
 				</div>
 				<div id="navOptions">
 					<div id="profileOptions">
-						<a href="/watch"><i class="fas fa-list"></i> My List</a>
+						<% if(!currentUser) { %> <!-- Checks if the res.locals.currentUser has been defined -->
+							<a href="/login"><i class="fas fa-sign-in-alt"></i><span>Login</span></a>
+							<a href="/register"><i class="fas fa-user-plus"></i><span>Sign Up</span></a>
+						<% } else { %>
+							<h7>Signed In As: <%= currentUser.username %></h7>
+							<a href="/watch"><i class="fas fa-list"></i>Lists</a>
+							<a href="/logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+						<% } %>
 					</div>
 				</div>
 			</nav>

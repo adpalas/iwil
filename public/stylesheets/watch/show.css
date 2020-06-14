@@ -51,7 +51,9 @@
 
 #watchListOptions {
 	display: flex;
+	justify-content: space-between;
 	
+	width: 60%;
 	padding-top: 10px;
 	
 }
@@ -60,9 +62,9 @@
 	
 	width: 110px;
 	height: 60px;
-	border: 0;
+	/* border: 0; */
 	
-	background: #363946; /* GUNMETAL */
+	/* background: #363946; /* GUNMETAL */ */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 	
 	font-size: 20px;
@@ -73,6 +75,8 @@
 }
 
 #watchListOptions button:hover {
+	border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
+	
 	opacity: 0.75;
 }	
 
@@ -207,6 +211,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 	
 	margin-right: 25px;
 }
@@ -215,25 +220,59 @@
 	margin-top: 10px;
 }
 
+.watch-selection-options form {
+	margin-bottom: 0;
+}
+
 .watch-selection-options button, .watch-selection-options a {
 	display: flex;
-	justify-content: start;
+	justify-content: center;
+	align-items: center;
 	
 	color: #EAF2EF; /* AZURE (X11/web color) */
 	font-size: 18px;
 }
 
-.watch-selection-options button i {
+/* .watch-selection-options button i {
 	margin-left: 5px;
-}
+} */
 
 .watch-selection-options button {
-	width: 110px;
+	width: 125px;
+	height: 50px;
 }
 
+/* .watch-selection-options button i, .watch-selection-options a i {
+	font-size: 15px;
+} */
 
+.watch-selection-options button:hover {
+	border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
+	font-size: 20px;
+	transition: font-size 0.1s linear 0s;
+}
+
+.watch-selection-options button:hover a i, .watch-selection-options button:hover a span {
+	font-size: 20px;
+	transition: font-size 0.1s linear 0s;
+}
+
+/* .watch-selection-options a:hover {
+	font-size: 22px;
+	transition: font-size 0.1s linear 0s;
+} */
+
+/* .watch-selection-options button:hover .watch-selection-options button a i {
+	font-size: 18px;
+	transition: font-size 0.1s linear 0s;
+} */
 
 @media only screen and (max-width: 1540px), only screen and (max-height: 900px){
+	
+	#watchListOptions {
+		width: 80%;
+	}
+	
 	.watch-selection {
 		height: 120px;
 		margin-bottom: 10px;
@@ -251,17 +290,34 @@
 	.watch-selection-info p {
 		font-size: 15px;
 	}
-	
-	.watch-selection-options form {
-		margin-bottom: 5px;
-	}
 
 	.watch-selection-options button, .watch-selection-options a {
 		font-size: 15px;
 	}
 	
+	/* .watch-selection-options button a i, .watch-selection-options form button i {
+		font-size: 12px;
+	} */
+	
 	.watch-selection-options button {
-		width: 95px;
+		width: 105px;
+		height: 45px;
 	}
 
+	.watch-selection-options button:hover {
+		border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
+		font-size: 18px;
+		transition: font-size 0.1s linear 0s;
+	}
+	
+	
+	.watch-selection-options button:hover a i, .watch-selection-options button:hover a span {
+		font-size: 18px;
+		transition: font-size 0.1s linear 0s;
+	}
+	
+	/* .watch-selection-options button:hover .watch-selection-options button a i {
+		font-size: 15px;
+		transition: font-size 0.1s linear 0s;
+	} */
 }

@@ -1,0 +1,18 @@
+<%- include("./partials/header") %>
+
+<div id="userSection">
+	<div id="containerHeader">
+		<h1>Create an Account</h1>
+	</div>
+	<div id="userContainer">
+		<div id="userFormContainer">
+			<form action="/register" method="POST">
+				<input type="text" name="username" placeholder="name" required>
+				<input type="text" name="password" placeholder="password" required>
+				<button id="authButton" class="button"><i class="fas fa-user-plus"></i><span>Register</span></button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<%- include("./partials/footer") %>

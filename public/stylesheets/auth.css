@@ -1,0 +1,90 @@
+#userSection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 80%;
+}
+
+#userSection h1 {
+	margin-bottom: 5px;
+	padding: 0 10px;
+	border-radius: 5px;
+	background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	font-weight: bold;
+}
+
+#userContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+	width: 55%;
+	height: 30%;
+	
+	padding-top: 45px;
+	
+	border-radius: 5px;
+	background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+}
+
+#userFormContainer {
+	width: 100%;
+}
+
+#userFormContainer form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+	width: 100%;
+}
+
+#userFormContainer form input {
+	width: 80%;
+	height: 40px;
+	
+	border: 1px solid #363946; /* GUNMETAL */
+	border-radius: 5px;
+	
+	outline: none;
+	box-shadow: none;
+	
+	font-size: 20px;
+	font-family: 'Assistant', sans-serif;
+}
+
+
+#authButton {
+	width: 125px;
+	height: 40px;
+	margin-top: 10px;
+	/* border: 1px solid orange; */
+	border-radius: 5px;
+	/* background: #363946; /* GUNMETAL */ */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	
+	text-decoration: none;
+	font-size: 20px;
+}
+
+#authButton:hover {
+	border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
+	font-size: 22px;
+	transition: font-size 0.1s linear 0s;
+}
+
+@media only screen and (max-width: 1540px), only screen and (max-height: 900px){
+	#userContainer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		
+		width: 45%;
+		height: 25%;
+		
+		padding-top: 35px;
+	}
+}

@@ -148,7 +148,6 @@
 	
 }
 
-
 .selection:hover .imgContainer {
 	padding-top: 0;
 	width: 200px;
@@ -193,8 +192,9 @@
 
 .selection-options {
 	display: none;
+	flex-direction: column;
 	width: 85%;
-	height: 15%;
+	height: 35%;
 	
 	visibility: 0;
 	
@@ -202,15 +202,16 @@
 }
 
 .selection-options button {
-	width: 48%;
-	height: 100%;
-	margin-bottom: 10px;
+	width: 80%;
+	height: 35px;
+	margin-bottom: 5px;
 	
 	color: #EAF2EF; /* AZURE (X11/web color) */
 	font-size: 12px;
 }
 
 .selection:hover {
+	width: 200px;
 	height: 95%;
 	
 	background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
@@ -228,7 +229,7 @@
 
 .selection:hover .selection-options {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: center;
 	
 	visibility: 1;
@@ -245,6 +246,20 @@
 	transition: font-size 0.1s linear 0s;
 }
 
+#notFound {
+	display: flex;
+	justify-content: center;
+	
+	width: 100%;
+}
+
+#notFound h1 {
+	display: flex;
+	align-items: center;
+	
+	height: 15%;
+}
+
 @media only screen and (max-width: 1540px), only screen and (max-height: 900px){
 	
 	#scrollLeft, #scrollRight {
@@ -257,11 +272,14 @@
 	}
 
 	.selection {
-
 		height: 200px;
 		/* padding-top: 10px; */
 	}
-
+	
+	.selection:hover {
+		width: 150px;
+	}
+	
 	.selection .imgContainer {
 		width: 150px;
 		height: 180px;
@@ -271,7 +289,7 @@
 	
 	.selection:hover .imgContainer {
 		padding-top: 0;
-		width: 150px;
+		/* width: 200px; */
 		height: 227px;
 		
 		transition: 0.2s linear 0s;
@@ -280,6 +298,11 @@
 	.posterUnavailable {
 		
 		font-size: 12px;
+	}
+	
+	.selection:hover .posterUnavailable {
+		
+		width: 75%;
 	}
 	
 	.selection-body {
@@ -302,14 +325,23 @@
 	}
 	
 	.selection-options {
+		display: none;
 		flex-direction: column;
-		
-		height: 30%;
 	}
 	
+	/* 
+	
+	.selection:hover .selection-options {
+		display: flex;
+		justify-content: flex-end;
+
+		visibility: 1;
+	} */
+	
 	.selection-options button, .selection-options a {
-		width: 80%;
-		margin-bottom: 5px;
+		/* width: 80%;
+		margin-bottom: 5px; */
+		height: 30px;
 		font-size: 10px;
 	}
 	

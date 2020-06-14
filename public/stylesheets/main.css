@@ -114,11 +114,11 @@ nav {
 	/* padding-right: 20px; */
 }
 
-#navHeader a:hover, #navOptions a:hover {
+#navHeader a:hover {
 	font-size: 32px;
 	transition: font-size 0.1s linear 0s;
 }
-
+	
 #navHeader a{
 	font-family: 'Rubik', sans-serif;
 	/* ORANGE YELLOW */
@@ -176,11 +176,34 @@ nav {
 
 #profileOptions {
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
 	align-items: center;
-	width: 135px;
+	/* width: 500px; */
 	height: 100%;
 	padding-right: 20px;
+	
+	font-size: 20px;
+}
+
+#profileOptions h7 {
+	margin-right: 5px;
+}
+
+#profileOptions a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100px;
+}
+
+#profileOptions i {
+	margin-right: 4px;
+	font-size: 18px;
+}
+
+#profileOptions a:hover {
+	font-size: 22px;
+	transition: font-size 0.1s linear 0s;
 }
 
 #homePageBody {
@@ -397,7 +420,7 @@ nav {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 25%;
+	/* width: 25%; */
 	height: 100%;
 }
 

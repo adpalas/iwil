@@ -58,8 +58,11 @@
 			</div>
 			<div id="movie-options">
 				<div id="addToList">
-					<button class="button" name="Add" value="<%= JSON.stringify(results) %>"><i class="fas fa-plus"></i> Add to Watchlist</button>
+					<% if(currentUser) { %> <!-- Checks if the res.locals.currentUser has been defined -->
+						<button class="button" name="Add" value="<%= JSON.stringify(results) %>"><i class="fas fa-plus"></i> Add to Watchlist</button>
+					<%}%>
 				</div>
+				
 				<div id="movie-providers">
 					<% if (providers.length === 0) {%>
 						<p>
