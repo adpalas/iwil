@@ -4,6 +4,8 @@
 		<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;800&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
 		
 		<link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+		
+		<meta name="viewport" content="width=device-width,initial-scale=1">
 	</head>
 	<body>
 		<div id="navContainer">
@@ -26,6 +28,13 @@
 			</nav>
 		</div>
 
+		<% if(success && success.length > 0) {%>
+			<div id="popupAlert" class="success"><h1><%=success%></h1></div>
+		<%}%>
+		<% if(error && error.length > 0) {%>>
+			<div id="popupAlert" class="error"><h1><%=error%></h1></div>
+		<%}%>
+		
 		<div id="homePageBody">
 			<div id="mainSearchBar">
 				<div id="homePageTitle">

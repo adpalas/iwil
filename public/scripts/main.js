@@ -1,23 +1,35 @@
-/* Javascript Declarations */
+/* jQuery scripting for animations, and passing ajax requests to the app server */
 
-const mainSearchBar 		= document.querySelector("#mainSearchBar"),
-	  mainSearchBarForm 	= document.querySelector("#mainSearchBar form"),
-	  resultsContainer 		= document.querySelector("#resultsContainer"),
-	  detailsSection 		= document.querySelector("#detailsSection"),
-	  watchlistsContainer 	= document.querySelector("#watchlistsContainer"),
-	  watchContainer 		= document.querySelector("#watchContainer"),
-	  newWatchlistContainer = document.querySelector("#newWatchlistContainer");
+// Methods
 
-/* jQuery Declarations */
+function openPopup(button) {
+	$(button).click(element => {
+		$("#addToWatchlist").css("display", "flex");
+	}); // When the user clicks on the .addToWatchlistButton button, open #addToWatchlist
 
-function addToWatchlist(openPopup) {
-	$(openPopup).click(element => {
-		const selection		= $(element.currentTarget).val(),
-			  state 		= $(element.currentTarget).attr("name");
+	$("#close").click(element => {
+		$("#addToWatchlist").css("display", "none");
+		$(".watchlist-content button").off(); // Don't forget to remove event handlers from the watchlists when done. Avoid multiple db writes
+	}); // When the user clicks on #close, close #addToWatchlist
+
+	$("#addToWatchlist").click(function(element) {
+		if(element.target.id === "addToWatchlist") {
+			$("#addToWatchlist").css("display", "none");
+			$(".watchlist-content button").off(); // Don't forget to remove event handlers from the watchlists when done. Avoid multiple db writes
+		} // checks if the click is outside addToWatchlist-content
+	}); // When the user clicks outside addToWatchlist-content, close #addToWatchlist
+} // A method that will initilize onclick events for buttons designated for opening/closing the #addToWatchlist popup
+
+
+function addToWatchlist(button) {
+	$(button).click(element => {
+		// Retrieve value and name attrbutes from the addToWatchlist button of a selection. This provides the info for ajax request
+		const selection	= $(element.currentTarget).val(),
+			  state 	= $(element.currentTarget).attr("name");
 		
 		if (state === "Add") {
 			$(".watchlist-content button").click(element => {
-				const id = $(element.currentTarget).val();
+				const id = $(element.currentTarget).val(); // Retrieve value attrbutes from a watchlist. This provides the info for ajax request
 				
 				console.log("Adding " + JSON.parse(selection).imdbID + " to watchlist " + id);
 				$.ajax({
@@ -29,176 +41,108 @@ function addToWatchlist(openPopup) {
 					
 					$("#addToWatchlist").each(function(){
 						$(this).css("display", "none");
-					});	
-					
-					$(".watchlist-content button").off(); // Don't forget to remove event handler to avoid multiple db writes
+					});	// Once the request is finished hide the #addToWatchlist popup
+					$(".watchlist-content button").off(); // Don't forget to remove event handlers from the watchlists when done. Avoid multiple db writes
 				}).fail(function(err) {
 					console.log(err);
-				});
-			});
-		} 
-	});
-}
+					$("#addToWatchlist").each(function(){
+						$(this).css("display", "none");
+					});	// Once the ajax request is finished hide the #addToWatchlist popup
+					$(".watchlist-content button").off(); // Don't forget to remove event handlers from the watchlists when done. Avoid multiple db writes
+				}); // Ajax request to app server. Calls post request for adding a selection to a user's watchlist
+			}); // Create an onclick event for each watchlist inside #addToWatchlist which holds the attributes of a selection
+		}  // Create an onclick event if the clicked element from the first event handler has the name attribute "Add"
+	}); // Create an onclick event on buttons designated for adding selections to watchlists
+} // A method that will initilize onclick events for buttons designated for adding selections to watchlists.
 
-/* search/index */
-
-/* Javascript */
-
-if (resultsContainer !== null){
-	// mainSearchBar.style.justifyContent = "start";
-	// mainSearchBar.style.height = "10%";
-	// mainSearchBarForm.style.height = "100%";
-	// resultsContainer.style.height = "80%";
-	
-	// Get the modal
-	var modal = document.querySelector("#addToWatchlist");
-
-	// Get the button that opens the modal
-	var addToWatchlistButton = document.querySelectorAll(".addToWatchlistButton");
-
-	// Get the <span> element that closes the modal
-	var span = document.querySelector("#close");
-
-	console.log(addToWatchlistButton);
-	
-	// When the user clicks on the button, open the modal
-	addToWatchlistButton.forEach((elm) => {
-		elm.onclick = function() {
-			modal.style.display = "flex";
-		}
-	});
-
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-	  modal.style.display = "none";
-		$(".watchlist-content button").off(); // Don't forget to remove event handler to avoid multiple db writes
-	}
-
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-	  if (event.target == modal) {
-		modal.style.display = "none";
-		  $(".watchlist-content button").off(); // Don't forget to remove event handler to avoid multiple db writes
-	  }
-	}
-
-	
-	/* jQuery */
-	
-	const selectionCount 		= $('.selection').length,
-		  selectionWidth 		= $('.selection').outerWidth(),
-		  fullScrollLength 		= selectionCount*selectionWidth,
-		  endOffset 			= $('.selection').last().offset().left - 50,
-		  resultsContentLength 	= $("#resultsContent").innerWidth();
-	
-	// console.log(selectionWidth);
-
-	// $('#resultsContent').scroll(); // Give the #resultsContent some scroll animations when run on a desktop
-	
-	$('#resultsContent').scroll(function() {
-		var resultsContentEnd = $(this).scrollLeft() + $(this).innerWidth();
-		var resultsContentPosition = $(this).scrollLeft();
+if ($("#resultsContainer").length && $(window).outerWidth() > 411){ // Temporary second condition value. This jquery is causing bugs with mobile versions
+	$("#resultsContainer").ready(function() {
+		const selectionCount 		= $('.selection').length,
+			  selectionWidth 		= $('.selection').outerWidth(),
+			  fullScrollLength 		= selectionCount*selectionWidth,
+			  endOffset 			= $('.selection').last().offset().left - selectionWidth,
+			  resultsContentLength 	= $("#resultsContent").innerWidth();
 		
-		$(".fade").each(function() {
-			/* Check the location of each desired element */
-			var objectEnd = $(this).offset().left - 50; // For some reason, this function calculates an extra 50px that is not true which affects the right most selection. As a temp fix, -50px
-			console.log(objectEnd);
+		$('#resultsContent').scroll(function() {
+			const resultsContentPosition 	= $(this).scrollLeft(),
+				  resultsContentEnd			= resultsContentPosition + $(this).innerWidth();
 			
-			/* If the element is completely within bounds of the window, fade it in */
-			if (objectEnd < resultsContentEnd) { //object comes into view (scrolling right)
-				if ($(this).css("opacity")==0) {$(this).fadeTo(500,1);}
-			} else { //object goes out of view (scrolling left)
-				if ($(this).css("opacity")==1) {$(this).fadeTo(500,0);}
-			}
-		});
+			
+			$(".fade").each(function() {
+				/* Check the location of each desired element */
+				var objectEnd = $(this).offset().left - selectionWidth; // Not too sure why when grabbing the offset of the right most selection in view needs subtracting.
+				
+				if (objectEnd < resultsContentEnd) { //object comes into view (scrolling right)
+					if ($(this).css("opacity")==0) {$(this).fadeTo(500,1);}
+				} else { //object goes out of view (scrolling left)
+					if ($(this).css("opacity")==1) {$(this).fadeTo(500,0);}
+				} // If the element is completely within bounds of the window, fade it in
+			}); // For every element that contains the .fade class
+			
+			$("#scrollRight").each(function(){
+				if(resultsContentEnd >= endOffset) {
+					$(this).fadeOut();
+				} else {
+					$(this).fadeIn();
+				}
+			}); // Hide/Show the scrollRight button depending on the position of the scroll offset
+			
+			$("#scrollLeft").each(function(){
+				if(resultsContentPosition === 0) {
+					$(this).fadeOut();
+				} else {
+					$(this).fadeIn();
+				}
+			}); // Hide/Show the scrollLeft button depending on the position of the scroll offset
+		}).scroll();
 		
-		$("#scrollRight").each(function(){
-			if(resultsContentEnd >= endOffset) {
-				$(this).fadeOut();
+		$("#scrollLeft").click(function(){
+			const currentOffset = $("#resultsContent").scrollLeft();
+			
+			if(currentOffset >= resultsContentLength){
+				$("#resultsContent").animate({
+				  scrollLeft: currentOffset - resultsContentLength
+				}, 1000);
 			} else {
-				$(this).fadeIn();
-			}
-		});
+				$("#resultsContent").animate({
+				  scrollLeft: 0
+				}, 1000);
+			} // When clicked, always check the current position of the scroll bar for the resultsContent to decide how far we scroll
+		}); // Applies to the scroll left button on the left side of the resultsContent div
 		
-		$("#scrollLeft").each(function(){
-			if(resultsContentPosition === 0) {
-				$(this).fadeOut();
+		$("#scrollRight").click(function(){
+			const currentOffset = $("#resultsContent").scrollLeft();
+			
+			if(((fullScrollLength - currentOffset) - resultsContentLength) >= resultsContentLength){
+				$("#resultsContent").animate({
+				  scrollLeft: currentOffset + resultsContentLength
+				}, 1000);
 			} else {
-				$(this).fadeIn();
-			}
-		});
-  	}).scroll();
+				$("#resultsContent").animate({
+				  scrollLeft: endOffset
+				}, 1000);
+			} // When clicked, always check the current position of the scroll bar for the resultsContent to decide how far we scroll
+		}); // Applies to the scroll right button on the right side of the resultsContent div
+		
+		openPopup(".addToWatchlistButton");
+		addToWatchlist(".addToWatchlistButton");
+	});
+} // When on the search/index page, run event handlers 
 
-	$("#scrollLeft").click(function(){
-		const currentOffset = $("#resultsContent").scrollLeft();
+if ($("#resultsContainer").length && $(window).outerWidth() <= 411){ // Temporary second condition value. This jquery is causing bugs with mobile versions
+	console.log("Hello Mobile");
 	
-		if(currentOffset >= resultsContentLength){ //The use of the integer 4 will need to later be more dynamic depending on how many full .selections fit in resultsContent at a time
-			$("#resultsContent").animate({
-			  scrollLeft: currentOffset - resultsContentLength
-			}, 1000);
-		} else {
-			$("#resultsContent").animate({
-			  scrollLeft: 0
-			}, 1000);
-		} // When clicked, always check the current position of the scroll bar for the resultsContent to decide how far we scroll
-	}); // Applies to the scroll left button on the left side of the resultsContent div
+	$(".selection").click(function(){
+		console.log("Hello there");
+		$(this).toggleClass(".selection-hasHover");
+	});
+} // Can't figure out how to disable the hover class for selection :(
 
-	$("#scrollRight").click(function(){
-		const currentOffset = $("#resultsContent").scrollLeft();
+if ($("#detailsSection").length){
+	$("#detailsSection").ready(function() {		
+		openPopup("#addToList button");
+		addToWatchlist("#addToList button");
+	});
+} // When on the search/show page, run event handlers 
 
-		if(((fullScrollLength - currentOffset) - resultsContentLength) >= resultsContentLength){
-			$("#resultsContent").animate({
-			  scrollLeft: currentOffset + resultsContentLength
-			}, 1000);
-		} else {
-			$("#resultsContent").animate({
-			  scrollLeft: endOffset
-			}, 1000);
-		} // When clicked, always check the current position of the scroll bar for the resultsContent to decide how far we scroll
-	}); // Applies to the scroll right button on the right side of the resultsContent div
-	
-	// initAddOrRemoveFromWatchList(".selection-options button", "indexPage");
-	
-	addToWatchlist(".addToWatchlistButton");
-	
-	
-} // When on the results page, run some dynamic style changes and animations if desired here. 
 
-/* search/show */
-
-if (detailsSection !== null){
-	// mainSearchBar.style.justifyContent = "start";
-	// mainSearchBar.style.height = "10%";
-	// mainSearchBarForm.style.height = "100%";
-	// detailsSection.style.height = "80%";
-	
-	// Get the modal
-	var modal = document.querySelector("#addToWatchlist");
-
-	// Get the button that opens the modal
-	var addToWatchlistButton = document.querySelector("#addToList button");
-
-	// Get the <span> element that closes the modal
-	var span = document.querySelector("#close");
-
-	// When the user clicks on the button, open the modal
-	addToWatchlistButton.onclick = function() {
-	  modal.style.display = "flex";
-	}
-
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-	  modal.style.display = "none";
-		$(".watchlist-content button").off(); // Don't forget to remove event handler to avoid multiple db writes
-	}
-
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-	  if (event.target == modal) {
-		modal.style.display = "none";
-		  $(".watchlist-content button").off(); // Don't forget to remove event handler to avoid multiple db writes
-	  }
-	}
-	
-	addToWatchlist("#addToList button");
-}

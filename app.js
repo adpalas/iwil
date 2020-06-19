@@ -10,6 +10,7 @@ var express 				= require("express"),
 	mongoose 				= require("mongoose"),
 	dotenv 					= require("dotenv"),
 	expressSession			= require("express-session"),
+	connectFlash			= require("connect-flash"),
 	passport				= require("passport"),
 	passportLocal			= require("passport-local"),
 	passportLocalMongoose	= require("passport-local-mongoose"),
@@ -27,10 +28,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 
 app.use(expressSession({
-	secret: "Alie is my adopter daughter.",
+	secret: "Alie is my adopted daughter.",
 	resave: false,
 	saveUninitialized: false
 })); // Initialize express-session to allow the creation and use o middleware
+
+app.use(connectFlash());
 
 // ==========================
 // PASSPORT CONFIG
@@ -49,6 +52,8 @@ passport.deserializeUser(User.deserializeUser()); // un-encodes (deserializing) 
 
 app.use(function(req, res, next){
 	res.locals.currentUser = req.user;
+	res.locals.error = req.flash("error");
+	res.locals.success = req.flash("success");
 	next(); // This MUST be specified or else all routes will never reach their callbacks
 }); // Applying a `middleware` function to each and every existing route below. This allows `views/partials/header.ejs` to reference currentUser for it's condition
 
@@ -114,7 +119,7 @@ function getWatchList(id) {
 	return new Promise(function(resolve, reject){
 		Watchlist.findOne({_id: id}, function(err, watchList){
 			if(err || !watchList){
-				console.log("An Error has Occurred. getWatchList()");
+				console.log("An Error has Occurred. getWatchList(" + id + ")");
 				console.log(err);
 				reject(err)
 			} else {
@@ -129,7 +134,7 @@ function getSelection(id) {
 	return new Promise(function(resolve, reject){
 		Selection.findOne({_id: id}, function(err, foundSelection){
 			if(err || !foundSelection) {
-				console.log("An Error has Occurred. getSelection()");
+				console.log("An Error has Occurred. getSelection(" + id + ")");
 				console.log(err);
 				reject(err);
 			} else {
@@ -174,18 +179,24 @@ app.get("/search", function(req, res){
 				allWatchLists().then((watchLists) => {
 					res.render("search/index", {search: search, movieResults: searchResults["Search"], detailList: detailList, watchLists: watchLists});
 				}).catch(function(err) {
-					console.log("An Error has Occurred. allWatchLists() failed at route `/search`");
+					console.log("An Error has Occurred. allWatchLists() failed at index route `/search`");
 					console.log(err);
+					req.flash("error", "Oops! There was a problem. Please try again.");
+					res.redirect("/");
 				}); // Nested promise. Need to grab user's watchList for index template to locate all selections that have been added to db. THEN we will render the page.
 				 
 			}).catch(function(err) {
-				console.log("An Error has Occurred. getMovieDetails() failed at route `/search`");
+				console.log("An Error has Occurred. getMovieDetails() failed at route index `/search`");
 				console.log(err);
+				req.flash("error", "Oops! There was a problem. Please try again.");
+				res.redirect("/");
 			});	// Grab some plot details for each selection and pass to the template for each selection's description. The INDEX page is rendered inside the last .then of the promise chain
 		} else {
 			console.log(error);
 			console.log(searchResults["Error"]);
-			res.render("search/index", {search: search, movieResults: [], detailList: [], watchLists: []});
+			req.flash("error", searchResults["Error"]);
+			res.redirect("/");
+			// res.render("search/index", {search: search, movieResults: [], detailList: [], watchLists: []});
 		} // Response is accepted only if error is null AND status === 200
 	}); // The request made to OMDb. Callback function will handle a successful render
 }); // INDEX: Handles a get request that is using the OMDb api to search for movies based on movie titles, this utilizes the `mainSearchBar` form element for making the request.
@@ -201,17 +212,24 @@ app.get("/search/:id", function(req, res){
 			allWatchLists().then((watchLists) => {
 				res.render("search/show", {results: results, providers: providers, watchLists: watchLists}); 
 			}).catch(function(err) {
+				console.log("An Error has Occurred. allWatchLists() failed at show route `/search/" + movie["imdbID"] + "`");
 				console.log(err);
+				req.flash("error", "Oops! There was a problem. Please try again.");
+				res.redirect("back");
 			}); // Nested promise. Need to grab user's watchList for index template to locate all selections that have been added to db. THEN we will render the page.
 			
 		}).catch(function(err) {
-			console.log("An Error has Occurred: findAvailability()");
+			console.log("An Error has Occurred. findAvailability() failed at show route `/search/" + movie["imdbID"] + "`");
 			console.log(err);
+			req.flash("error", "Oops! There was a problem. Please try again.");
+			res.redirect("back");
 		});; // Nested promise. Make request to Utelly to check all streaming platforms for this selection based on imdbid. THEN we will render the page.
 		
 	}).catch(function(err) {
-		console.log("An Error has Occurred: getMovieDetails()");
+		console.log("An Error has Occurred. getMovieDetails() failed at show route `/search/" + movie["imdbID"] + "`");
 		console.log(err);
+		req.flash("error", "Oops! There was a problem. Please try again.");
+		res.redirect("back");
 	});	// Promise. Grab all details for a selection and pass to the show template.
 }); // SHOW: When clicking `details` from a .selection on search/index, handle a SHOW route for that particular film.
 
@@ -223,7 +241,10 @@ app.get("/watch", isLoggedIn, function(req, res){
 	allWatchLists().then((watchLists) =>{
 		res.render("watch/index", {watchLists: watchLists});
 	}).catch(function(err){
+		console.log("An Error has Occurred. allWatchLists() failed at index route `/watch`");
 		console.log(err);
+		req.flash("error", "Oops! There was a problem. Please try again.");
+		res.redirect("back");
 	}); // Resolved promise grabs the saved watchlist
 }); // INDEX: Navigate to /watch and show all saved selections if logged in to known user
 
@@ -245,19 +266,19 @@ app.post("/watch", isLoggedIn, function(req, res){
 	
 	Watchlist.create(newWatchList, function(err, watchlists){
 		if(err || !watchlists){
-			console.log("An Error has Occurred.");
+			console.log("An Error has Occurred. Watchlist.create() failed at create route `/watch`");
 			console.log(err);
+			req.flash("error", "Oops! There was a problem. Please try again.");
 			res.redirect("back");
 		} else {
-			console.log("Listing All Watchlists..");
-			console.log(watchlists);
+			console.log("New watchlist added: " + newWatchList);
+			req.flash("success", "New watchlist added!");
 			res.redirect("/watch");
 		} // If new user creation is successful, notify user and return to '/watch' page
-	}); // Call
+	}); // Call for creation for new Watchlist.
 }); // CREATE: Handle requests to add new watchlists. Define new insert using the form's POST request on watch/new.ejs, insert into collection
 
 app.get("/watch/:id", isLoggedIn, function(req,res) {
-	console.log("get: /watch/:id");
 	const id = req.params.id;
 	
 	getWatchList(id).then((watchList) => {
@@ -266,21 +287,26 @@ app.get("/watch/:id", isLoggedIn, function(req,res) {
 		if (watchList["selection"].length > 0) {
 			watchList["selection"].forEach((selection_id) =>{
 				getSelectionPromises.push(getSelection(selection_id));
-			}); // Prepare nested promise. Use results of the first promise to prepare requests for greabbing details of each movie.
+			}); // Prepare nested promise. Use results of the first promise to prepare requests for grabbing details of each movie.
 			
 			Promise.all(getSelectionPromises).then((selectionList) => {
 				res.render("watch/show", {watchList: watchList, selectionList: selectionList});
 			}).catch(function(err){
+				console.log("An Error has Occurred. getSelection() failed at show route `/watch/" + id + "`");
 				console.log(err);
-			});
+				req.flash("error", "Oops! There was a problem. Please try again.");
+				res.redirect("back");
+			}); // Resolve all nested promises regarding stored info of each selection for specific watchlist
 		} else {
-			console.log(watchList);
 			res.render("watch/show", {watchList: watchList, selectionList: []});
-		}
+		} // check if the retrieved watchlist is empty
 	}).catch(function(err){
+		console.log("An Error has Occurred. getWatchList() failed at show route `/watch/" + id + "`");
 		console.log(err);
-	}); // Resolved promise grabs the saved watchlist
-}); // SHOW
+		req.flash("error", "Oops! There was a problem. Please try again.");
+		res.redirect("back");
+	}); // Resolved promise grabs the saved watchlist and then retirves associated selections
+}); // SHOW: Handle requests to show a user one of their saved watchlists
 
 app.get("/watch/:id/edit", isLoggedIn, function(req,res){
 	const id = req.params.id;
@@ -288,10 +314,12 @@ app.get("/watch/:id/edit", isLoggedIn, function(req,res){
 	getWatchList(id).then((watchList) => {
 		res.render("watch/edit", {watchList: watchList});
 	}).catch(function(err){
-		console.log("An Error has Occurred. Watchlist.findOne() failed at EDIT route `/watch/" + id + "/edit`");
+		console.log("An Error has Occurred. Watchlist.findOne() failed at edit route `/watch/" + id + "/edit`");
 		console.log(err);
-	});
-}); // EDIT
+		req.flash("error", "Oops! There was a problem. Please try again.");
+		res.redirect("back");
+	}); // Retrieve user's watchlist specified by id
+}); // EDIT: Handle requests to retrieve information for a user's watchlist and pass to the edit page
 
 app.put("/watch/:id", isLoggedIn, function(req,res){
 	const id 		= req.params.id,
@@ -299,14 +327,16 @@ app.put("/watch/:id", isLoggedIn, function(req,res){
 	
 	Watchlist.findOneAndUpdate({_id:id}, watchList, function(err,updatedWatchList){
 		if(err | !updatedWatchList) {
-			console.log("An Error has Occurred. Watchlist.findOneAndUpdate() failed at UPDATE route `/watch/" + id + "`");
+			console.log("An Error has Occurred. Watchlist.findOneAndUpdate() failed at update route `/watch/" + id + "`");
 			console.log(err);
+			req.flash("error", "Oops! There was a problem. Please try again.");
 			res.redirect("/watch/" + id);
 		} else {
+			req.flash("success", "Watchlist Updated!");
 			res.redirect("/watch/" + id);
-		}
-	});
-}); // UPDATE
+		} // Return to watchlist after update has been made. Notify user.
+	}); // locate and update the specific watchlist with specified data from user.
+}); // UPDATE: Handle request to retrieve information from user for updating a specified watchlist
 
 app.delete("/watch/:id", isLoggedIn, function(req, res){ 
 	const id = req.params.id;
@@ -315,30 +345,37 @@ app.delete("/watch/:id", isLoggedIn, function(req, res){
 		watchList["selection"].forEach((selectionId) => {
 			Selection.findOneAndDelete({_id: selectionId}, function(err, selection){
 				if(err || !selection) {
-					console.log("An Error has Occurred. Selection.findOneAndDelete() failed at DELETE route `/watch/" + id + "`");
+					console.log("An Error has Occurred. Selection.findOneAndDelete() failed at delete route `/watch/" + id + "`");
+					console.log("Watchlist " + id + " selection: " + selectionId + " could not be deleted.");
 					console.log(err);
+					req.flash("error", "Oops! There was a problem. Please try again.");
+					res.redirect("/watch");
 				} else {
 					console.log("Watchlist " + id + " selection: " + selectionId + " deleted.");
-				}
-			});
-		});
+				} // Check status of each deletion of selections associated with watchlist
+			}); // Call the deletion of a single selection inside a watchlist
+		}); // iterate through each selection of watchlist for individual deletes in the db
 		
 		Watchlist.findOneAndDelete({_id: id}, function(err, watchLists){
 			if(err || !watchLists) {
-				console.log("An Error has Occurred. Watchlist.findOneAndDelete() failed at DELETE route `/watch/" + id + "`");
+				console.log("An Error has Occurred. Watchlist.findOneAndDelete() failed at delete route `/watch/" + id + "`");
+				console.log("Watchlist " + id + " could not be deleted.");
 				console.log(err);
-				res.status(400).send(err);
+				req.flash("error", "Oops! There was a problem. Please try again.");
+				res.redirect("/watch");
 			} else {
 				console.log("Watchlist " + id + " deleted.");
-				console.log(watchLists);
+				req.flash("success", "Watchlist deleted!");
 				res.redirect("/watch");
-			}
-		});
+			} // Check status of watchlist deletion and return
+		}); // Call deletion of watchlist in the database
 	}).catch(function(err){
-		console.log("An Error has Occurred. getWatchList() failed at DELETE route `/watch/" + id + "`");
+		console.log("An Error has Occurred. getWatchList() failed at delete route `/watch/" + id + "`");
 		console.log(err);
-	}); // Resolved promise grabs the saved watchlist;
-}); // DELETE
+		req.flash("error", "Oops! There was a problem. Please try again.");
+		res.redirect("/watch");
+	}); // Resolved promise grabs the saved watchlist, deletes all selections associated with watchlist, then deletes watchlist
+}); // DELETE: Handle request to delete a user's watchlist and it's assocaiated selections
 
 
 // ==========================
@@ -346,26 +383,27 @@ app.delete("/watch/:id", isLoggedIn, function(req, res){
 // ==========================
 
 app.post("/watch/:id/selection", isLoggedIn, function(req, res){
-	console.log("post: /watch/:id/selection");
-	const id		= req.params.id;
+	const id = req.params.id;
 		 
 	const selection = {
 		title: req.body.selection["Title"],
 		imdbID: req.body.selection["imdbID"],
 		image: req.body.selection["Poster"]
-	}
+	} // Object for creating new selection in selections collection
 	
 	Selection.create(selection, function(err, newSelection){
 		if(err || !newSelection){
 			console.log("An Error has Occurred. Selection.create() failed at route `/watch/" + id + "/selection`");
 			console.log(err);
-			res.status(400).send(err);
+			req.flash("error", "Oops! There was a problem. Please try again.");
+			res.redirect(".");
 		} else {
 			Watchlist.findOne({_id: id}, function(err, watchList) {
 				if(err || !watchList) {
 					console.log("An Error has Occurred. Watchlist.fineOne() failed at route `/watch/`" + id + "/selection`");
 					console.log(err);
-					res.status(400).send(err);
+					req.flash("error", "Oops! There was a problem. Please try again.");
+					res.redirect(".");
 				} else {
 					watchList.selection.push(newSelection);
 					
@@ -374,62 +412,64 @@ app.post("/watch/:id/selection", isLoggedIn, function(req, res){
 					} else {
 						watchList.imageList.shift();
 						watchList.imageList.push(selection["image"]);
-					} // Queuing/Dequeing images for the watchlist image 
+					} // Queuing/Dequeing images for the watchlist image. Keep at most 4 images in imageList of a watchlist
 					
 					watchList.save(function(err,response){
 						if(err || !response) {
 							console.log("An Error has Occurred. watchlist.save() failed at route `/watch/`" + id + "/selection`");
 							console.log(err);
-							res.status(400).send(err);
+							req.flash("error", "Oops! There was a problem. Please try again.");
+							res.redirect(".");
 						} else {
 							console.log("Added " + selection["imdbID"] + " to watch list " + id);
 							console.log("watchlist imageList: " + watchList["imageList"]);
-							res.status(200).send({status: "Added " + selection["imdbID"] + " to watch list " + id});
-						}
-					});
+						} // Check if save to watchlist is successful
+					}); // Save changes to watchlist after pushing to imageList
 					
-				}
-			});
+				} // If watchlist is successfully found, push the poster image to imageList of watchlist
+			}); // Add poster image of new selection to imageList of watchlist.
 			
-		} // Send success status to .ajax call from client
-	}); // Adds selection to db  
-}); // CREATE
+			// Return to page regardless of successful push to imageList or not.
+			res.status(200).send({status: "Added " + selection["imdbID"] + " to watch list " + id});
+		} // Push postter image to watchlist's imageList, and send success status to .ajax call from client
+	}); // Adds selection to db collection selections 
+}); // CREATE: Handle requests from a user to add a selection to their watchlist
 
 app.delete("/watch/:id/selection/:selection_id", isLoggedIn, function(req, res){
-	console.log("delete: /watch/:id/selection/:selection_id");
 	const watchListId = req.params.id,
 		  selectionId = req.params.selection_id;
 		
 	Selection.findOneAndDelete({_id: selectionId}, function(err, movieList){
 		if(err || !movieList){
-			console.log("An Error has Occurred. Selection.findOneAndDelete() failed at /watch/:id/selection/:selection_id");
+			console.log("An Error has Occurred. Selection.findOneAndDelete() failed at /watch/" + watchListId + "/selection/" + selectionId);
 			console.log(err);
-			res.status(400).send(err);
+			req.flash("error", "Oops! There was a problem. Please try again.");
+			res.redirect(".");
 		} else {
-			
 			Watchlist.findOne({_id: watchListId}, function(err, watchList) {
 				if(err || !watchList) {
-					console.log("An Error has Occurred. Watchlist.findOne() failed at /watch/:id/selection/:selection_id");
+					console.log("An Error has Occurred. Watchlist.findOne() failed at /watch/" + watchListId + "/selection/" + selectionId);
 					console.log(err);
-					res.status(400).send(err);
+					req.flash("error", "Oops! There was a problem. Please try again.");
+					res.redirect(".");
 				} else {
 					const index = watchList.selection.indexOf(selectionId);
 					watchList.selection.splice(index, 1);
 					watchList.save(function(err, response) {
 						if(err || !response) {
-							console.log("An Error has Occurred. watchlist.save() failed at /watch/:id/selection/:selection_id");
+							console.log("An Error has Occurred. watchlist.save() failed at /watch/" + watchListId + "/selection/" + selectionId);
 							console.log(err);
-							res.status(400).send(err);
+							req.flash("error", "Oops! There was a problem. Please try again.");
+							res.redirect(".");
 						} else {
 							res.redirect("/watch/" + watchListId);
-						}
-					});
-				}
-			});
-			
-		} // Sucessful removal from the db will notify user and/or remove the selection from their watchlist
-	}); // Removes selection from db
-}); // DESTROY: Handle requests to remove selections from db collection
+						} // Check if saving to watchlist after a removal of a selectionId was successful then redirect.
+					}); // Save changes to watchlist after removing a selectionId
+				} // If watchlist is found, remove associated selection from watchlist
+			}); // Search for user's watchlist by id
+		} // Sucessful removal from the db collection selections will then remove the selectionId from their watchlist
+	}); // Removes selection from db collection selection then proceeds to remove selectionId from associated watchlist
+}); // DESTROY: Handle requests to remove selection from db collection selections
 
 // ==========================
 // AUTH ROUTES
@@ -445,9 +485,11 @@ app.post("/register", function(req, res){
 	User.register(newUser, req.body.password, function(err, registeredUser){
 		if(err){
 			console.log(err);
+			req.flash("error", err.message);
 			return res.render('register');
 		} // If we cannot register (create the new user), throw err and end function by returning to register page
 		passport.authenticate("local")(req, res, function(){
+			req.flash("success", "Registration Successful! Welcome " + newUser.username + "!");
 			res.redirect("/");
 		}); // This will abstract the `logging-in` of the use if successful and send us to the main search page. Uses passport.js' `local` strategy for authenticating
 	}); // Create a user object and only pass in username first arguement, the password in the second arguement into order to `hash` it
@@ -460,12 +502,15 @@ app.get("/login", function(req, res){
 app.post("/login", passport.authenticate("local", 
 	{
 		successRedirect: "/",
-		failureRedirect: "/login"
+		failureRedirect: "/login",
+		error: "Login failed. Username or password was incorrect.",
+    	failureFlash: true
 	}), function(req, res){
 }); // Handle user login, uses `middleware` in the post route arguments`. The middleware will check in `users` collection for the submitted login and compare the password with the `hash` and `salt` key. 
 
 app.get("/logout", function(req, res){
 	req.logout();
+	req.flash("success", "Signed out. Goodbye!");
 	res.redirect("/");
 }); // Handle logout request. req.logout() uses the simple passport logout functionality
 
@@ -476,8 +521,9 @@ app.get("/logout", function(req, res){
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
 		return next();
-	} // When passing isLoggedIn to a route, if the req is validated by passport, the following callback function will be used
-	res.redirect("/login"); // If not, we redirect to the login page and the secret route's callback is ignored
+	} // When passing isLoggedIn to a route, if the req is validated by passport, the following route's callback function will be used
+	req.flash("error", "Please Login.");
+	res.redirect("/login"); // If not, we redirect to the login page and following route's callback is ignored
 } // Will be used as the middleware function for checking authentication when going down specific routes
 
 app.listen(process.env.PORT || 3000, process.env.IP, function(){

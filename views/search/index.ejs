@@ -12,7 +12,7 @@
 
 			<div id="resultsContent" >
 				<% movieResults.forEach(function(movie, i){ %>
-					<div class="selection fade">
+					<div class="selection .selection-hasHover fade">
 						<div class="imgContainer">
 							<% if (movie["Poster"] === 'N/A') {%>
 								<div class="posterUnavailable"><i class="fas fa-images"></i><span>Poster Unavailable</span></div>
@@ -56,6 +56,8 @@
 		<%}%>
 	</div>
 </div>
+
+<!-- Popups -->
 
 <div id="addToWatchlist">
 	<!-- Modal content -->
