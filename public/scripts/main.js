@@ -55,7 +55,42 @@ function addToWatchlist(button) {
 	}); // Create an onclick event on buttons designated for adding selections to watchlists
 } // A method that will initilize onclick events for buttons designated for adding selections to watchlists.
 
-if ($("#resultsContainer").length && $(window).outerWidth() > 411){ // Temporary second condition value. This jquery is causing bugs with mobile versions
+if ($("#searchButton").length){
+	console.log("searchButton Found!");
+	$("#searchButton").click(function() {
+		
+		if( $("#navSearchBarDropdown").css('display') === 'none') {
+			$("#navOptionsDropdown").css("display", "flex");
+			$("#navSearchBarDropdown").css("display", "flex");
+		} 
+	});
+	
+	$("#navOptionsDropdown").click(function(element) {
+		if(element.target.id === "navOptionsDropdown") {
+			$("#navOptionsDropdown").css("display", "none");
+			$("#navSearchBarDropdown").css("display", "none");
+		}
+	});
+}
+
+if ($("#menuButton").length){
+	$("#menuButton").click(function() {
+		
+		if( $("#profileOptionsDropdown").css('display') === 'none') {
+			$("#navOptionsDropdown").css("display", "flex");
+			$("#profileOptionsDropdown").css("display", "flex");
+		} 
+	});
+	
+	$("#navOptionsDropdown").click(function(element) {
+		if(element.target.id === "navOptionsDropdown") {
+			$("#navOptionsDropdown").css("display", "none");
+			$("#profileOptionsDropdown").css("display", "none");
+		}
+	});
+}
+
+if ($("#resultsContainer").length && $(window).outerWidth() > 768){ // Temporary second condition value. This jquery is causing bugs with mobile versions
 	$("#resultsContainer").ready(function() {
 		const selectionCount 		= $('.selection').length,
 			  selectionWidth 		= $('.selection').outerWidth(),
@@ -129,14 +164,19 @@ if ($("#resultsContainer").length && $(window).outerWidth() > 411){ // Temporary
 	});
 } // When on the search/index page, run event handlers 
 
-if ($("#resultsContainer").length && $(window).outerWidth() <= 411){ // Temporary second condition value. This jquery is causing bugs with mobile versions
-	console.log("Hello Mobile");
-	
-	$(".selection").click(function(){
-		console.log("Hello there");
-		$(this).toggleClass(".selection-hasHover");
+if ($("#resultsContainer").length && $(window).outerWidth() <= 768){
+	$("div .selection").each(function(){
+		$(this).removeClass("selection-hasHover");
+		
+		$(this).click(function(element){
+			if($(element.target).is("button")) return;
+			$(this).toggleClass("selection-hasHover");
+		});
 	});
-} // Can't figure out how to disable the hover class for selection :(
+	
+	openPopup(".addToWatchlistButton");
+	addToWatchlist(".addToWatchlistButton");
+} // 
 
 if ($("#detailsSection").length){
 	$("#detailsSection").ready(function() {		

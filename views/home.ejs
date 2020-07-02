@@ -8,20 +8,34 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1">
 	</head>
 	<body>
+		<div id="navOptionsDropdown">
+			<div id="profileOptionsDropdown">
+				<% if(!currentUser) { %> <!-- Checks if the res.locals.currentUser has been defined -->
+					<a href="/login"><i class="fas fa-sign-in-alt"></i><span>Log In</span></a>
+					<a href="/register"><i class="fas fa-user-plus"></i><span>Sign Up</span></a>
+				<% } else { %>
+					<h7>Signed In As: <%= currentUser.username %></h7>
+					<a href="/watch"><i class="fas fa-list"></i><span>Lists</span></a>
+					<a href="/logout"><i class="fas fa-sign-out-alt"></i><span>Log Out</span></a>
+				<% } %>
+			</div>
+		</div>
+		
 		<div id="navContainer">
 			<nav>
 				<div id="navHeader">
-					<a href="/"><i class="fas fa-film"></i> I.W.I.L.</a>
+					<a href="/"><i class="fas fa-film"></i> IWIL</a>
 				</div>
 				<div id="navOptions">
+					<div id="menuButton"><i class="fas fa-ellipsis-v"></i></div>
 					<div id="profileOptions">
 						<% if(!currentUser) { %> <!-- Checks if the res.locals.currentUser has been defined -->
-							<a href="/login"><i class="fas fa-sign-in-alt"></i><span>Login</span></a>
+							<a href="/login"><i class="fas fa-sign-in-alt"></i><span>Log In</span></a>
 							<a href="/register"><i class="fas fa-user-plus"></i><span>Sign Up</span></a>
 						<% } else { %>
 							<h7>Signed In As: <%= currentUser.username %></h7>
 							<a href="/watch"><i class="fas fa-list"></i>Lists</a>
-							<a href="/logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+							<a href="/logout"><i class="fas fa-sign-out-alt"></i><span>Log Out</span></a>
 						<% } %>
 					</div>
 				</div>

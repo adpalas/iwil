@@ -1,4 +1,4 @@
-/* Default Style at 1920x1080 */
+/* Default Style at width <=768 */
 
 /***********/
 /* SEARCH */
@@ -9,68 +9,42 @@
 #resultsContainer {
 	display: flex;
 	flex-direction: column;
-	/* justify-content: center; */
+	justify-content: center;
 	align-items: center;
 	width: 100%;
-	height: 80%;
+	height: 85%;
 }
 
 #resultsContainer h1 {
-	margin-bottom: 5px;
-	padding: 0 10px;
-	border-radius: 5px;
+	margin: 0;
+	padding: 0;
+	border-radius: 0;
+
 	background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
 	color: #EAF2EF; /* AZURE (X11/web color) */
+	font-size: 18px;
 }
 
 #resultsBody {
 	display: flex;
-	width: 80%;
-	height: 85%;
+	width: 100%;
+	height: 90%;
 }
 
 .scrollContainer {
-	height: 250px;
-	width: 60px;
-}
-
-#scrollLeft, #scrollRight {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	
-	height: 210px;
-	margin: 10px 0;
-	padding: 0 5px;
-	
-	border-radius: 5px;
-	
-	background: #010400; /* RICH BLACK */
-	color: #EAF2EF; /* AZURE (X11/web color) */
-	
-	font-size: 40px;
-	text-decoration: none;
-	
-}
-
-.scrollButtonfade {
-  	opacity: 0.25;
-	transition: opacity 0.2s linear 0s;
-}
-
-#scrollLeft:hover, #scrollRight:hover {
-	opacity: 0.75;
+	display: none;
 }
 
 #resultsContent {
 	display: flex;
-	
+
 	width: 100%;
 	height: 100%;
-	
+
 	overflow-x: auto;
 	overflow-y: hidden;
+
+	scroll-snap-type: x mandatory;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -88,93 +62,46 @@
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	
-	height: 220px;
+
+	width: 100%;
+	height: 100%;
 	border: 0;
-	border-radius: 5px;
-	/* padding-top: 20px; */
-	
+	border-radius: 0;
+
 	transition: 0.1s linear 0s;
+
+	scroll-snap-align: start;
 }
 
 .selection-hasHover:hover {
-	width: 180px;
-	height: 95%;
-	
+	width: 325px;
+	height: 100%;
+
 	background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
 	/* background: #363946C0;  */
 	/* GUNMETAL with alpha. `C0` == 0.75 */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 }
 
-.fade {
-  opacity: 1;
+.selection .imgContainer {
+	display: flex;
+	justify-content: center;
+	width: 325px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+	height: 100%;
+	padding: 10px 0;
 }
 
-.selection:first-child {
-	padding-left: 0;
-}
-
-.selection:last-child {
-	padding-right: 0;
+.selection-hasHover:hover .imgContainer {
+	height: 40%;
+	
+	transition: 0.2s linear 0s;
 }
 
 .selection img {
 	max-width: 100%;
 	max-height: 100%;
-	
+
 	border-radius: 15px;
-}
-
-.selection-hasHover:hover img {
-	border-radius: 5px;
-	transition: 0.2s linear 0s;
-}
-
-.posterUnavailable {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	
-	width: 85%;
-	height: 100%;
-	
-	border-radius: 15px;
-	
-	background: #363946;  /* GUNMETAL */
-	color: #EAF2EF; /* AZURE (X11/web color) */
-	
-	font-size: 12px;
-}
-
-.posterUnavailable i {
-	font-size: 50px;
-}
-
-.selection-hasHover:hover .posterUnavailable {
-	width: 100%;
-	height: 100%;
-	border-radius: 5px;
-	transition: 0.2s linear 0s;
-}
-
-.selection .imgContainer {
-	display: flex;
-	justify-content: center;
-	width: 180px;
-	height: 210px;
-	padding-top: 10px;
-	
-}
-
-.selection-hasHover:hover .imgContainer {
-	padding-top: 0;
-	/* width: 200px; */
-	height: 270px;
-
-	transition: 0.2s linear 0s;
-	
 }
 
 .selection-body {
@@ -191,7 +118,7 @@
 }
 
 .selection-info {
-	width: 85%;
+	width: 65%;
 }
 
 .selection-title {
@@ -204,32 +131,26 @@
 
 .selection-info p {
 	font-size: 15px;
+	text-align: center;
 }
 
 .selection-options {
-	display: none;
+	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	width: 85%;
 	height: 35%;
-	
+
 	visibility: 0;
-	
+
 	transition: 0.5s linear 0s;
 }
 
-.selection-hasHover:hover .selection-options {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	
-	visibility: 1;
-}
-
 .selection-options button {
-	width: 90%;
+	width: 100%;
 	height: 50px;
 	margin-bottom: 5px;
-	
+
 	color: #EAF2EF; /* AZURE (X11/web color) */
 	font-size: 15px;
 }
@@ -240,247 +161,138 @@
 	transition: font-size 0.1s linear 0s;
 }
 
+.selection-options button a i, .selection-options button a span {
+	font-size: 15px;
+}
+
 .selection-options button:hover a i, .selection-options button:hover a span {
 	font-size: 18px;
 	transition: font-size 0.1s linear 0s;
 }
 
-#notFound {
-	display: flex;
-	justify-content: center;
-	
-	width: 100%;
-}
+@media only screen and (min-width: 320px) {
 
-#notFound h1 {
-	display: flex;
-	align-items: center;
-	
-	height: 15%;
-}
-
-@media only screen and (max-width: 1540px), only screen and (max-height: 920px){
-	
-	#scrollLeft, #scrollRight {		
-		height: 250px;
-		margin: 20px 0;
-		font-size: 60px;
-	}
-
-	.selection {
-		height: 300px;
-	}
-	
 	.selection-hasHover:hover {
-		width: 200px;
-	}
-	
-	.selection .imgContainer {
-		width: 200px;
-		height: 250px;
-		padding-top: 20px;	
+		width: 320px;
 	}
 
+	.selection .imgContainer {
+		width: 320px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+	}
+	
 	.selection-hasHover:hover .imgContainer {
-		height: 300px;
+		height: 30%;
 
 		transition: 0.2s linear 0s;
-	}
-
-	.posterUnavailable {
-		font-size: 18px;
-	}
-	
-	.selection-hasHover:hover .posterUnavailable {
-		width: 100%;
-	}
-
-	.selection-title {
-		/* margin-bottom: 3px; */
-		font-size: 20px;
 	}
 	
 	.selection-body {
-		display: none;
-		height: 50%;
-		transition: 0.5s linear 0s;
-	}
-	
-	.selection-info p {
-		font-size: 15px;
-	}
-
-	.selection-options button, .selection-options a {
-		height: 35px;
-		font-size: 12px;
-	}
-	
-	.selection-options button:hover {
-		border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
-		font-size: 15px;
-		transition: font-size 0.1s linear 0s;
-	}
-	
-	.selection-options button:hover a i, .selection-options button:hover a span {
-		font-size: 15px;
-		transition: font-size 0.1s linear 0s;
-	}
-}
-
-@media only screen and (max-width: 1240px){
-	#scrollLeft, #scrollRight {		
-		height: 220px;
-		margin: 20px 0;
-		font-size: 60px;
-	}
-	
-	.selection {
-		height: 280px;
-	}
-	
-	.selection-hasHover:hover {
-		width: 180px;
-	}
-	
-	.selection .imgContainer {
-		width: 180px;
-		height: 220px;
-		padding-top: 20px;	
-	}
-
-	.selection-hasHover:hover .imgContainer {
-		height: 260px;
-
-		transition: 0.2s linear 0s;
-	}
-	
-	.selection-title {
-		/* margin-bottom: 3px; */
-		font-size: 18px;
-	}
-	
-	.selection-info p {
-		font-size: 12px;
-	}
-}
-
-@media only screen and (max-width: 440px), only screen and (max-width: 812px) {
-	#resultsContainer {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
 		height: 70%;
 	}
+}
+
+@media only screen and (min-width: 360px) {
+
+	.selection-hasHover:hover {
+		width: 360px;
+	}
+
+	.selection .imgContainer {
+		width: 360px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+	}
+}
+
+@media only screen and (min-width: 375px) {
+
+	.selection-hasHover:hover {
+		width: 375px;
+	}
+
+	.selection .imgContainer {
+		width: 375px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+	}
+}
+
+@media only screen and (min-width: 411px) {
+
+	.selection-hasHover:hover {
+		width: 411px;
+	}
+
+	.selection .imgContainer {
+		width: 411px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+	}
+}
+
+@media only screen and (min-width: 414px) {
+
+	.selection-hasHover:hover {
+		width: 414px;
+	}
+
+	.selection .imgContainer {
+		width: 414px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+	}
 	
-	#resultsContainer h1 {
-		margin: 0;
-		padding: 0;
-		border-radius: 0;
+	.selection-hasHover:hover .imgContainer {
+		height: 40%;
+
+		transition: 0.2s linear 0s;
 	}
-
-	#resultsBody {
-		display: flex;
-		width: 100%;
+	
+	.selection-body {
+		height: 60%;
 	}
+}
 
-	.scrollContainer {
-		display: none;
+@media only screen and (max-height: 420px) {
+	#resultsContainer {
+		height: 80%;
 	}
-
-	#resultsContent {
-		display: flex;
-
-		width: 100%;
-		height: 100%;
-
-		overflow-x: auto;
-		overflow-y: hidden;
-	}
-
-	/* Hide scrollbar for Chrome, Safari and Opera */
-	#resultsContent::-webkit-scrollbar {
-	  display: none;
-	}
-
-	/* Hide scrollbar for IE and Edge */
-	#resultsContent {
-	  -ms-overflow-style: none;
-	}
-
+	
 	.selection {
 		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		align-items: center;
-
-		width: 100%;
-		height: 100%;
-		border: 0;
-		border-radius: 0;
-
-		transition: 0.1s linear 0s;
+		flex-direction: row;
+		
+		margin: 0 10px;
 	}
 	
 	.selection .imgContainer {
-		display: flex;
-		justify-content: center;
-		width: 411px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
-		height: 100%;
-		padding-top: 10px;
+		width: 180px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
 	}
 	
-	.selection img {
-		max-width: 100%;
-		max-height: 100%;
+	.selection-hasHover:hover .imgContainer {
+		display: none;
 
-		border-radius: 15px;
-	}
-
-	.posterUnavailable {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-
-		width: 85%;
-		height: 100%;
-
-		border-radius: 15px;
-
-		background: #363946;  /* GUNMETAL */
-		color: #EAF2EF; /* AZURE (X11/web color) */
-
-		font-size: 12px;
-	}
-
-	.posterUnavailable i {
-		font-size: 50px;
+		transition: 0.2s linear 0s;
 	}
 
 	.selection-body {
-		display: none;
-		transition: 0.5s linear 0s;
+		height: 100%;
+		width: 180px;
 	}
-
+	
 	.selection-info {
-		width: 85%;
+		width: 100%;
 	}
 
 	.selection-title {
 		margin-top: 5px;
 		margin-bottom: 0;
 
-		font-size: 20px;
+		font-size: 15px;
 		text-align: center;
 	}
 
 	.selection-info p {
-		font-size: 15px;
+		font-size: 12px;
+		text-align: center;
 	}
-
+	
 	.selection-options {
-		display: none;
+		display: flex;
 		flex-direction: column;
+		justify-content: flex-end;
 		width: 85%;
 		height: 35%;
 
@@ -488,39 +300,224 @@
 
 		transition: 0.5s linear 0s;
 	}
-
+	
 	.selection-options button {
-		width: 90%;
-		height: 50px;
+		width: 100%;
+		height: 30px;
 		margin-bottom: 5px;
 
 		color: #EAF2EF; /* AZURE (X11/web color) */
 		font-size: 15px;
 	}
+}
 
-	.selection-options button:hover {
-		border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
-		font-size: 18px;
-		transition: font-size 0.1s linear 0s;
+@media (min-width: 768px) and (min-height: 1024px) {
+	#resultsContainer h1 {
+		font-size: 28px;
 	}
 
-	.selection-options button:hover a i, .selection-options button:hover a span {
-		font-size: 18px;
-		transition: font-size 0.1s linear 0s;
-	}
-
-	#notFound {
+	#resultsContent {
 		display: flex;
-		justify-content: center;
+		align-items: center;
+	}
+	
+	.selection {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		height: 60%;
+		margin: 0 10px;
+		
+		border-radius: 5px;
+	}
+	
+	.selection-hasHover:hover {
+		height: 60%;
+	}
+	
+	.selection .imgContainer {
+		width: 250px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+	}
+	
+	.selection-hasHover:hover .imgContainer {
+		display: none;
 
+		transition: 0.2s linear 0s;
+	}
+
+	.selection-body {
+		height: 100%;
+		width: 250px;
+	}
+	
+	.selection-info {
 		width: 100%;
 	}
 
-	#notFound h1 {
-		display: flex;
-		align-items: center;
-
-		height: 15%;
+	.selection-title {
+		font-size: 28px;
 	}
 
+	.selection-info p {
+		font-size: 20px;
+	}
+	
+	
+	.selection-options button {
+		height: 80px;
+		font-size: 24px;
+	}
+	
+	.selection-options button a i, .selection-options button a span {
+		font-size: 24px;
+	}
+
+}
+
+@media (min-width: 1024px) and (min-height: 768px) {
+	#resultsContainer h1 {
+		font-size: 28px;
+	}
+
+	#resultsContent {
+		display: flex;
+		align-items: center;
+	}
+	
+	.selection {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		height: 60%;
+		margin: 0 10px;
+		
+		border-radius: 5px;
+	}
+	
+	.selection-hasHover:hover {
+		height: 60%;
+	}
+	
+	.selection .imgContainer {
+		width: 300px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+	}
+	
+	.selection-hasHover:hover .imgContainer {
+		display: none;
+
+		transition: 0.2s linear 0s;
+	}
+	
+	.selection-body {
+		height: 100%;
+		width: 300px;
+	}
+	
+	.selection-info {
+		width: 100%;
+	}
+
+	.selection-title {
+		font-size: 28px;
+	}
+
+	.selection-info p {
+		font-size: 20px;
+	}
+	
+	
+	.selection-options button {
+		height: 80px;
+		font-size: 24px;
+	}
+	
+	.selection-options button a i, .selection-options button a span {
+		font-size: 24px;
+	}
+}
+
+@media only screen and (min-width: 1100px) {
+	.scrollContainer {
+		display: block;
+		height: 100%;
+		width: 60px;
+	}
+
+	#scrollLeft, #scrollRight {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		
+		height: 100%;
+		margin: 0;
+		padding: 0 5px;
+		background: #010400; /* RICH BLACK */
+		color: #EAF2EF; /* AZURE (X11/web color) */
+		
+		font-size: 40px;
+		text-decoration: none;
+
+	}
+
+	.scrollButtonfade {
+		opacity: 0.25;
+		transition: opacity 0.2s linear 0s;
+	}
+
+	#scrollLeft:hover, #scrollRight:hover {
+		opacity: 0.75;
+	}
+	
+	.selection {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 300px;
+		height: 60%;
+		margin: 0 10px;
+		
+		border-radius: 5px;
+		
+	}
+	
+	.selection-hasHover:hover {
+		width: 300px;
+		height: 90%;
+		background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
+		/* background: #363946C0;  */
+		/* GUNMETAL with alpha. `C0` == 0.75 */
+		color: #EAF2EF; /* AZURE (X11/web color) */
+	}
+	
+	.selection .imgContainer {
+		width: 300px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+	}
+	
+	.selection-hasHover:hover .imgContainer {
+		display: flex;
+		transition: 0.2s linear 0s;	
+	}
+	
+	.selection-body {
+		overflow-y: hidden;
+	}
+	
+	.selection-title {
+		font-size: 24px;
+	}
+
+	.selection-info p {
+		font-size: 18px;
+	}
+	
+	
+	.selection-options button {
+		height: 40px;
+		font-size: 18px;
+	}
+	
+	.selection-options button a i, .selection-options button a span {
+		font-size: 18px;
+	}
 }

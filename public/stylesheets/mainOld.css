@@ -1,0 +1,690 @@
+/* Default Style at 1920x1080 */
+
+/* General */
+
+.button {
+	border: 1px solid #8B8C89; /* MIDDLE GREY */
+	border-radius: 5px;
+	padding: 5px;
+	
+	text-decoration: none;
+	
+	font-size: 20px;
+}
+
+a {
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	text-decoration: none;
+}
+
+button span, button a span {
+	margin-left: 3px;
+}
+
+button {
+	background: none;
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	cursor: pointer;
+}
+
+button a {
+	width: 100%;
+	height: 100%;
+} /* Need this for all non nav anchor elements that are used as buttons */
+
+.button:focus, button:focus, a:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+html {
+	background: #010400; /* RICH BLACK */
+}
+
+html, body {
+	margin: 0;
+}
+
+body {
+	background-image: url("https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80&fbclid=IwAR0l_QDkn4kOxkSqCRB4b2KbDCh_Vqevz24ANH6eB-0sfmwKj7ZrnP6Dh-I");
+	background-repeat: no-repeat;
+	background-position: 50% 0; /* Center the image */
+	background-size: cover; /* Resize the background image to cover the entire container */
+	font-family: 'Assistant', sans-serif;
+}
+	
+#navContainer {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 10%;
+} 
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	
+	width: 100%;
+	height: 100%;
+	
+	
+	background: #010400; /* RICH BLACK */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	
+	font-size: 30px;
+}
+
+#navHeader a {
+	font-weight: bold;
+}
+
+#navHeader, #navOptions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+#navHeader {
+	width: 150px;
+	padding-left: 20px;
+}
+
+#navHeader a:hover {
+	font-size: 32px;
+	transition: font-size 0.1s linear 0s;
+}
+	
+#navHeader a{
+	font-family: 'Rubik', sans-serif;
+}
+
+#navSearchBar {
+	display: flex;
+	align-items: center;
+	
+	height: 100%;
+	margin-right: 20px;
+}
+
+#navSearchBar form{
+	display: flex;
+	align-items: center;
+	margin: 0;
+	height: 50%;
+}
+
+#navSearchBar form input, #navSearchBar form button {
+	height: 100%;
+	font-size: 15px;
+}
+
+#navSearchBar form input {
+	width: 300px;
+
+	border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
+	border-right: none;
+	
+	padding-left: 5px;
+	
+	background: none;
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	
+	outline: none;
+	
+}
+
+#navSearchBar form button {
+	border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
+	border-left: none;
+	
+	background: none;
+	width: 35px;
+	height: 100%;
+}
+
+#navSearchBar form button:hover {
+	font-size: 18px;
+	transition: font-size 0.1s linear 0s;
+}
+
+#profileOptions {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	height: 100%;
+	padding-right: 20px;
+	
+	font-size: 20px;
+}
+
+#profileOptions h7 {
+	margin-right: 5px;
+}
+
+#profileOptions a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100px;
+}
+
+#profileOptions i {
+	margin-right: 4px;
+	font-size: 18px;
+}
+
+#profileOptions a:hover {
+	font-size: 22px;
+	transition: font-size 0.1s linear 0s;
+}
+
+#homePageBody {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 80%;
+}
+
+
+#mainSearchBar {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+	width: 60%;
+	height: 80%;	
+	
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	
+}
+
+#containerHeader {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	width: 100%;
+	height: 15%;
+}
+
+#containerHeader h1 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 75%;
+	height: 50%;
+	
+	margin: 0;
+}
+
+#homePageTitle {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+	padding: 0 10px;
+	border-radius: 15px;
+	
+	font-family: 'Rubik', sans-serif;
+	background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
+}
+
+#mainSearchBar h1 {
+	margin: 0;
+	padding-left: 5px;
+	font-weight: bold;
+	font-size: 125px;
+	/* color: #3A2E39;  */
+	/* BLACK COFFEE */
+	
+}
+
+#mainSearchBar p {
+	margin-top: 0;
+	font-size: 25px;
+	font-weight: 800;
+	color: #8B8C89; /* MIDDLE GREY */
+}
+
+#mainSearchBar h3 {
+	margin-bottom: 50px;
+	padding: 0 10px;
+	border-radius: 5px;
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
+	
+	font-size: 20px;
+}
+
+#mainSearchBar form{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin: 0;
+}
+
+#textInput {
+	width: 800px;
+	height: 40px;
+	
+	border: 1px solid #010400; /* RICH BLACK */
+	border-radius: 5px;
+	padding-left: 10px;
+	
+	font-size: 20px;
+}
+
+#submitButton {
+	width: 200px;
+	height: 40px;
+	margin-left: 10px;
+	border: 0;
+	border-radius: 5px;
+	
+	background: #010400; /* RICH BLACK */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	
+	text-decoration: none;
+	font-size: 20px;
+}
+
+#submitButton:hover {
+	border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
+	font-size: 22px;
+	transition: font-size 0.1s linear 0s;
+}
+
+#footer {
+	position: relative;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 10%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	background: #010400; /* RICH BLACK */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+}
+
+#addToWatchlist {
+	display: none; /* Hidden by default */
+	flex-direction: column;
+	align-items: center;
+	
+	width: 100%; /* Full width */
+	height:	80%; /* Full height */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */	
+	left: 0;
+	top: 10%;
+	
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */	
+}
+
+#addToWatchlist-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+	height: 100%;
+	/* margin: 10% 0; */
+	
+	color: #EAF2EF; /* AZURE (X11/web color) */
+}
+
+#addToWatchlist-content h1, #close {
+	padding: 5px;
+	border: 1px solid #8B8C89; /* MIDDLE GREY */
+	border-radius: 10px;
+	background: #010400; /* RICH BLACK */
+}
+
+.watchlist-content .popUp-style {
+	border: 1px solid #8B8C89; /* MIDDLE GREY */
+	border-radius: 10px;
+	background: #010400; /* RICH BLACK  with alpha. `C0` == 0.75 */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+}
+
+#close {
+	font-size: 30px;
+}
+
+#addList .popUp-iconContainer {
+	opacity: 0.75;
+	transition: opacity 0.2s linear 0s;
+	
+}
+
+#addList .popUp-iconContainer:hover {
+	opacity: 1;
+}
+
+.watchlist-content button {
+	width: 100%;
+	height: 100%;
+	border: none;
+	outline: none;
+	
+	font-size: 25px;
+}
+
+.watchlist-selection-title h7 button{
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+	text-align: center;
+	
+	word-break: break-word;
+}
+
+.watchlist-selection-title h7 button:hover {
+	text-decoration: underline;
+}
+
+
+#popupAlert {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 5%;
+	
+	position: absolute;
+	top: 10%;
+	left: 0;
+	
+	z-index: 1;
+}
+
+#popupAlert h1 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	
+	margin: 0;
+	color: #EAF2EF; /* AZURE (X11/web color) */
+	font-size: 18px;
+}
+
+.success {
+	background: #3DDC97A0; /*MEDIUM AQUAMARINE W/ OPACITY */
+}
+
+.error {
+	background: #FF495CA0; /* SIZZLING RED W/ OPACITY */
+}
+
+@media only screen and (max-width: 1540px or max-height: 920) {
+	
+	nav {
+		font-size: 20px;
+	}
+	
+	button {
+		font-size: 15px;
+	}
+	
+	button span, button a span {
+		margin-left: 0;
+	}
+	
+	#navHeader, #navOptions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+	#navOptions {
+		width: 18%;
+	}
+}
+
+@media only screen and (max-width: 1240px), only screen and (max-width: 820px) {
+	nav {
+		font-size: 20px;
+	}
+	
+	button {
+		font-size: 20px;
+	}
+	
+	#textInput {
+		width: 700px;
+	}
+
+	#submitButton {
+		width: 150px;
+	}
+}
+
+@media only screen and (max-width: 440px){
+	body {
+		background-position: 50% 50%; /* Center the image */
+		background-size: 100% 70%;; /* Resize the background image to cover the entire container */
+	}
+	
+	#navContainer {
+		height: 15%;
+	}
+	
+	#navHeader {
+		display: none;
+	}
+	
+	#navOptions{
+		display: flex;
+		flex-direction: column-reverse;
+		justify-content: center;
+		
+		width: 100%;
+	}
+	
+	#profileOptions {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		height: 50%;
+		
+		padding-right: 0;
+		
+		font-size: 20px;
+	}
+	
+	#navSearchBar {
+		display: flex;
+		align-items: center;
+
+		height: 50%;
+		margin-right: 0;
+	}
+
+	#navSearchBar form{
+		display: flex;
+		align-items: center;
+		margin: 0;
+		height: 50%;
+	}
+
+	#navSearchBar form input, #navSearchBar form button {
+		height: 100%;
+		font-size: 15px;
+	}
+
+	#navSearchBar form input {
+		width: 300px;
+
+		border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
+		border-right: none;
+
+		padding-left: 5px;
+
+		background: none;
+		color: #EAF2EF; /* AZURE (X11/web color) */
+
+		outline: none;
+
+	}
+
+	#navSearchBar form button {
+		border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
+		border-left: none;
+
+		background: none;
+		width: 35px;
+		height: 100%;
+	}
+
+	#navSearchBar form button:hover {
+		font-size: 18px;
+		transition: font-size 0.1s linear 0s;
+	}
+	
+	#homePageBody {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 70%;
+	}
+	
+	#mainSearchBar {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		width: 100%;
+		height: 80%;
+	}
+
+	#containerHeader {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: center;
+		width: 100%;
+		height: 10%;
+	}
+
+	#containerHeader h1 {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+
+		margin: 0;
+		
+		font-size: 25px;
+	}
+	
+	#homePageTitle {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		padding: 0 10px;
+		border-radius: 15px;
+
+		font-family: 'Rubik', sans-serif;
+		background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
+	}
+
+	#mainSearchBar h1 {
+		margin: 0;
+		padding-left: 5px;
+		font-weight: bold;
+		font-size: 80px;
+		/* color: #3A2E39;  */
+		/* BLACK COFFEE */
+
+	}
+
+	#mainSearchBar p {
+		margin-top: 0;
+		font-size: 25px;
+		font-weight: 800;
+		color: #8B8C89; /* MIDDLE GREY */
+	}
+
+	#mainSearchBar h3 {
+		margin-bottom: 50px;
+		padding: 0 10px;
+		border-radius: 5px;
+		color: #EAF2EF; /* AZURE (X11/web color) */
+		background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
+
+		font-size: 14px;
+	}
+
+	#mainSearchBar form{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		margin: 0;
+	}
+
+	#textInput {
+		width: 80%;
+		height: 40px;
+
+		border: 1px solid #010400; /* RICH BLACK */
+		border-radius: 5px;
+		padding-left: 10px;
+
+		font-size: 20px;
+	}
+
+	#submitButton {
+		width: 80%;
+		height: 40px;
+		margin-top: 10px;
+		margin-left: 0;
+		border: 0;
+		border-radius: 5px;
+
+		background: #010400; /* RICH BLACK */
+		color: #EAF2EF; /* AZURE (X11/web color) */
+
+		text-decoration: none;
+		font-size: 20px;
+	}
+
+	#submitButton:hover {
+		border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
+		font-size: 22px;
+		transition: font-size 0.1s linear 0s;
+	}
+	
+	#footer {
+		position: relative;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		height: 15%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		background: #010400; /* RICH BLACK */
+		color: #EAF2EF; /* AZURE (X11/web color) */
+	}
+	
+	#addToWatchlist {
+		height:	70%; /* Full height */
+		top: 15%;
+	}
+}
+
+@media only screen and (max-width: 440px){
+	
+}

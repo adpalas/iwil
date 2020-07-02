@@ -1,4 +1,4 @@
-/* Default Style at width <=768 */
+/* Default Style at 1920x1080 */
 
 /***********/
 /*  WATCH  */
@@ -12,29 +12,31 @@
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	height: 85%;
+	height: 80%;
 }
 
 #watchlistsContainer h1 {
 	margin: 0;
-	padding: 0;
-	border-radius: 0;
-
+	padding: 0 5px;
+	border-radius: 5px;
+	
+	font-weight: bold;
+	
 	background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
 	color: #EAF2EF; /* AZURE (X11/web color) */
-	font-size: 18px;
 }
 
 #watchlistsBody {
 	display: flex;
-	width: 100%;
-	height: 90%;
+	width: 80%;
+	height: 80%;
 }
 
 #watchlistsContent {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	/* flex-direction: column; */
+	
 	
 	width: 100%;
 	height: 100%;
@@ -43,15 +45,29 @@
 	overflow-y: auto;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+#watchlistsContent::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+#watchlistsContent {
+  -ms-overflow-style: none;
+}
+
 #addList, .watchlist-selection {
 	display: flex;
 	justify-content: center;
 	
-	width: 50%;
+	width: 20%;
 	height: 320px;
 	border: 0;
 	padding-top: 20px;
 	
+}
+
+.watchlist-selection:hover .watchlist-content {
+	filter: brightness(100%);
 }
 
 .watchlist-selection-title {
@@ -71,6 +87,10 @@
 	text-align: center;
 	
 	word-break: break-word;
+}
+
+.watchlist-selection-title h7 a:hover {
+	text-decoration: underline;
 }
 
 .watchlist-content a, #iconContainer a{
@@ -101,6 +121,10 @@
 	
 }
 
+#iconContainer:hover {
+	opacity: 0.75;
+}
+
 .watchlist-content {
 	width: 90%;
 	height: 250px;
@@ -115,6 +139,11 @@
 	font-size: 60px;
 	
 	opacity: 1;
+}
+
+.watchlist-content:hover {
+	font-style: bold;
+	transition: 0.2s linear 0s;
 }
 
 .watchlist-body {
@@ -161,26 +190,34 @@
 	height: 100%;
 }
 
-@media only screen and (max-height: 420px) {
-	#addList, .watchlist-selection {
-		width: 25%;
-	}
+@media only screen and (max-width: 1540px), only screen and (max-height: 900px){
+	
 }
 
-@media only screen and (min-width: 768px) {
-	#addList, .watchlist-selection {
-		width: 25%;
+@media only screen and (max-width: 440px) {
+	#watchlistsContainer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		
+		height: 70%;
 	}
-}
-
-@media only screen and (min-width: 1024px) {
-	#addList, .watchlist-selection {
-		width: 20%;
+	
+	#watchlistsContainer h1 {
+		margin: 0;
+		padding: 0;
+		border-radius: 0;
+		
+		font-size: 15px;
 	}
-}
-
-@media only screen and (min-width: 1100px) {
+	
+	#watchlistsBody {
+		width: 100%;
+		height: 90%;
+	}
+	
 	#addList, .watchlist-selection {
-		width: 15%;
+		width: 50%;
+		border: 0;
 	}
 }

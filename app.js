@@ -113,7 +113,21 @@ function allWatchLists(){
 			} // Grab the returned data from db and return array `watchLists`
 		}); // Call to db collection `watchlist` for existing data
 	}); // Establishes this db call as a promise when the method is called.
-} // A promise definition that requests the watchList for a user.
+} // A promise definition that requests all existing  watchLists.
+
+function getUserWatchLists(author){
+	return new Promise(function(resolve, reject){
+		Watchlist.find({author: author}, function(err, watchLists){
+			if(err || !watchLists){
+				console.log("An Error has Occurred. getUserWatchLists()");
+				console.log(err);
+				reject(err)
+			} else {
+				resolve(watchLists);
+			} // Grab the returned data from db and return array `watchLists`
+		}); // Call to db collection `watchlist` for existing data
+	}); // Establishes this db call as a promise when the method is called.
+} // A promise definition that requests all watchLists for a user.
 
 function getWatchList(id) {
 	return new Promise(function(resolve, reject){
@@ -129,7 +143,6 @@ function getWatchList(id) {
 	}); // Establishes this db call as a promise when the method is called.
 } // A promise definition that requests the watchList for a user.
 
-
 function getSelection(id) {
 	return new Promise(function(resolve, reject){
 		Selection.findOne({_id: id}, function(err, foundSelection){
@@ -143,6 +156,23 @@ function getSelection(id) {
 		}); // Call to db collection `selection` for existing data
 	}); // Establishes this db call as a promise when the method is called.
 } // A promise definition that requests the selection for a user's watchlist.
+
+function getMovieResults() {
+	return new Promise(function(resolve, reject){
+		const url	= 'https://www.omdbapi.com/?s=' + search + '&type=movie&apikey=' + process.env.OMDBKEY;
+		request(url, function(error, response, body){
+			var searchResults = JSON.parse(body);
+			if(!error && response.statusCode == 200 && searchResults["Response"] !== "False") {
+				
+			} else {
+				console.log(error);
+				console.log(searchResults["Error"]);
+				// reject(searchResults["Error"]);
+				// res.render("search/index", {search: search, movieResults: [], detailList: [], watchLists: []});
+			} // Response is accepted only if error is null AND status === 200
+		});  // The request made to OMDb. Callback function will handle a successful render
+	}); // Establishes this api request call as a promise when the method is called.
+} // A promise definition that requests movies from OMDB based on title
 
 app.get("/", function(req, res){
 	res.render("home");
@@ -161,12 +191,14 @@ app.get("/search", function(req, res){
 	request(url, function(error, response, body){
 		var searchResults = JSON.parse(body);
 		
-		console.log(searchResults);
-		
 		if(!error && response.statusCode == 200 && searchResults["Response"] !== "False") {
 			searchResults["Search"].forEach(function(movie){
+				if(movie["Poster"] === "N/A") {
+					return;
+				} // Filter results that are missing posters
+				movieResults.push(movie);
 				promises.push(getMovieDetails(movie));
-			}); // Prepare an evaulation of a list of promises for each and every returned selection
+			}); // Prepare an evaulation of a list of promises for filtered selection
 			
 			Promise.all(promises).then((results) => {
 				
@@ -177,7 +209,7 @@ app.get("/search", function(req, res){
 				}); // Take the result of each evaluated promise and pass Plot details to the list. The list is in order with the selection order.
 				
 				allWatchLists().then((watchLists) => {
-					res.render("search/index", {search: search, movieResults: searchResults["Search"], detailList: detailList, watchLists: watchLists});
+					res.render("search/index", {search: search, movieResults: movieResults, detailList: detailList, watchLists: watchLists});
 				}).catch(function(err) {
 					console.log("An Error has Occurred. allWatchLists() failed at index route `/search`");
 					console.log(err);
@@ -238,10 +270,15 @@ app.get("/search/:id", function(req, res){
 // ==========================
 
 app.get("/watch", isLoggedIn, function(req, res){
-	allWatchLists().then((watchLists) =>{
+	const author = {
+		id: req.user._id,
+		username: req.user.username
+	}
+	
+	getUserWatchLists(author).then((watchLists) =>{
 		res.render("watch/index", {watchLists: watchLists});
 	}).catch(function(err){
-		console.log("An Error has Occurred. allWatchLists() failed at index route `/watch`");
+		console.log("An Error has Occurred. getUserWatchLists() failed at index route `/watch`");
 		console.log(err);
 		req.flash("error", "Oops! There was a problem. Please try again.");
 		res.redirect("back");

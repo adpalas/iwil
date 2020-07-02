@@ -6,132 +6,44 @@
 	</div>
 	<div id="watchlistsBody">
 		<div id="watchlistsContent" >
-			<div class="watchlistsRow">
-				<div id="addList">
-					<div id="iconContainer">
-						<a href="/watch/new"><i class="fas fa-plus"></i></a>
-					</div>
+			<div id="addList">
+				<div id="iconContainer">
+					<a href="/watch/new"><i class="fas fa-plus"></i></a>
 				</div>
-				<% if(watchLists.length > 0) {%>
-					<% for(var i = 0; i < watchLists.length; i++) {%>
-						<%if(i !== 5) {%>
-							<div class="watchlist-selection">
-								<div class="watchlist-content">
-									<a href="/watch/<%= watchLists[i]._id %>">
-										<div class="watchlist-body">
-											<%if(watchLists[i].imageList.length === 0){%>
-												<div class="noImage"><i class="fas fa-film"></i></div>
-											<%}else if(watchLists[i].imageList.length < 4) {%>
-												<div class="oneImage"><img src="<%= watchLists[i].imageList[0] %>"></div>
-											<%} else {%>
-												<div class="imageRow">
-													<img src="<%= watchLists[i].imageList[0] %>">
-													<img src="<%= watchLists[i].imageList[1] %>">
-												</div>
-												<div class="imageRow">
-													<img src="<%= watchLists[i].imageList[2] %>">
-													<img src="<%= watchLists[i].imageList[3] %>">
-												</div>
-											<%}%>
-										</div>
-									</a>
-									<div class="watchlist-selection-title">
-										<h7>
-											<%if(watchLists[i].name.length > 30) {%>
-												<a href="/watch/<%= watchLists[i]._id%>"><%= watchLists[i].name.substring(0, 30) + "..."%></a>
-											<%}else{%>
-												<a href="/watch/<%= watchLists[i]._id%>"><%= watchLists[i].name%></a>
-											<%}%>
-										</h7>
-									</div>
-								</div>
-							</div>
-						<%}else{%>
-							<%break;%>
-						<%}%>
-					<%}%>
-				<%}%>
 			</div>
-			<% if(watchLists.length > 5) {%>
-				<% const remainingLists = watchLists.length - 5; %>
-				<% const numberOfRows = Math.floor(remainingLists/6) + remainingLists%6; %>
-				<% var index = 5; %>
-			
-				<% if (remainingLists < 6) { %>
-					<div class="watchlistsRow">
-					<% for(var i = 0; i < remainingLists; i++) {%>
-						<div class="watchlist-selection">
-							<div class="watchlist-content">
-								<a href="/watch/<%= watchLists[index+i]._id %>">
-									<div class="watchlist-body">
-										<%if(watchLists[index+i].imageList.length === 0){%>
-											<div class="noImage"><i class="fas fa-film"></i></div>
-										<%}else if(watchLists[index+i].imageList.length < 4) {%>
-											<div class="oneImage"><img src="<%= watchLists[index+i].imageList[0] %>"></div>
-										<%} else {%>
-											<div class="imageRow">
-												<img src="<%= watchLists[index+i].imageList[0] %>">
-												<img src="<%= watchLists[index+i].imageList[1] %>">
-											</div>
-											<div class="imageRow">
-												<img src="<%= watchLists[index+i].imageList[2] %>">
-												<img src="<%= watchLists[index+i].imageList[3] %>">
-											</div>
-										<%}%>
-									</div>
-								</a>
-								<div class="watchlist-selection-title">
-									<h7>
-										<%if(watchLists[index+i].name.length > 30) {%>
-											<a href="/watch/<%= watchLists[index+i]._id%>"><%= watchLists[index+i].name.substring(0, 30) + "..."%></a>
-										<%}else{%>
-											<a href="/watch/<%= watchLists[index+i]._id%>"><%= watchLists[index+i].name%></a>
-										<%}%>
-									</h7>
-								</div>
-							</div>
-						</div>
-					<%}%>
-					</div>
-				<%} else { %>
-					<% for(var i = 0; i < numberOfRows; i++) {%>
-						<div class="watchlistsRow">
-						<% for(var j = 0; j < 6; j++) {%>
-							<div class="watchlist-selection">
-								<div class="watchlist-content">
-									<a href="/watch/<%= watchLists[index]._id %>">
-										<div class="watchlist-body">
-											<%if(watchLists[index].imageList.length === 0){%>
-												<div class="noImage"><i class="fas fa-film"></i></div>
-											<%}else if(watchLists[index].imageList.length < 4) {%>
-												<div class="oneImage"><img src="<%= watchLists[index].imageList[0] %>"></div>
-											<%} else {%>
-												<div class="imageRow">
-													<img src="<%= watchLists[index].imageList[0] %>">
-													<img src="<%= watchLists[index].imageList[1] %>">
-												</div>
-												<div class="imageRow">
-													<img src="<%= watchLists[index].imageList[2] %>">
-													<img src="<%= watchLists[index].imageList[3] %>">
-												</div>
-											<%}%>
+			<% if(watchLists.length > 0) {%>
+				<% for(var i = 0; i < watchLists.length; i++) {%>
+					<div class="watchlist-selection">
+						<div class="watchlist-content">
+							<a href="/watch/<%= watchLists[i]._id %>">
+								<div class="watchlist-body">
+									<%if(watchLists[i].imageList.length === 0){%>
+										<div class="noImage"><i class="fas fa-film"></i></div>
+									<%}else if(watchLists[i].imageList.length < 4) {%>
+										<div class="oneImage"><img src="<%= watchLists[i].imageList[0] %>"></div>
+									<%} else {%>
+										<div class="imageRow">
+											<img src="<%= watchLists[i].imageList[0] %>">
+											<img src="<%= watchLists[i].imageList[1] %>">
 										</div>
-									</a>
-									<div class="watchlist-selection-title">
-										<h7>
-											<%if(watchLists[index].name.length > 30) {%>
-												<a href="/watch/<%= watchLists[index]._id%>"><%= watchLists[index].name.substring(0, 30) + "..."%></a>
-											<%}else{%>
-												<a href="/watch/<%= watchLists[index]._id%>"><%= watchLists[index].name%></a>
-											<%}%>
-										</h7>
-									</div>
+										<div class="imageRow">
+											<img src="<%= watchLists[i].imageList[2] %>">
+											<img src="<%= watchLists[i].imageList[3] %>">
+										</div>
+									<%}%>
 								</div>
+							</a>
+							<div class="watchlist-selection-title">
+								<h7>
+									<%if(watchLists[i].name.length > 30) {%>
+										<a href="/watch/<%= watchLists[i]._id%>"><%= watchLists[i].name.substring(0, 30) + "..."%></a>
+									<%}else{%>
+										<a href="/watch/<%= watchLists[i]._id%>"><%= watchLists[i].name%></a>
+									<%}%>
+								</h7>
 							</div>
-							<% if(index !== watchLists.length - 1){index++} else{break;} %>
-						<%}%>
 						</div>
-					<%}%>
+					</div>
 				<%}%>
 			<%}%>
 		</div>
