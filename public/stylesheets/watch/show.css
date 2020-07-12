@@ -22,7 +22,7 @@
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
-	height: 600px;
+	/* min-height: 600px; */
 	
 	background: #010400C0; /* RICH BLACK  with alpha. `C0` == 0.75 */
 	color: #EAF2EF; /* AZURE (X11/web color) */
@@ -33,16 +33,27 @@
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
-	height: 50%;
+	height: 300px;
 	
 	padding-top: 10px;
 }
 
 #header-imageContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	width: 100%;
 	height: 80%;
 	
 	padding-bottom: 10px;
+}
+
+#header-imageContainer .imageRow {
+	width: 40%;
+}
+
+.noImage {
+	font-size: 50px;
 }
 
 #watchListOptions {
@@ -82,13 +93,24 @@
 	align-items: center;
 	
 	width: 100%;
-	height: 50%;
+	/* height: 50%; */
 	/* scroll-snap-type: x mandatory; */
 }
 
 #mainDetailsContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+}
+
+#mainDetailsContainer h1 {
 	
-	/* scroll-snap-align: start; */
+	/* white-space: nowrap; */
+	/* overflow: hidden; */
+	/* text-overflow: ellipsis; */
+	text-align: center;
 }
 
 #watchContainer h1 {
@@ -103,8 +125,8 @@
 	padding-right: 10px;
 	padding-left: 10px;
 	
-	overflow-x: hidden;
-	overflow-y: auto;
+	/* overflow-x: hidden;
+	overflow-y: auto; */
 	
 	/* scroll-snap-align: start; */
 }
@@ -127,6 +149,12 @@
 	width: 100%;
 	
 	border-top: 1px solid #EAF2EFC0; /* AZURE (X11/web color) */
+}
+
+#watchContent h1 {
+	width: 100%;
+	height: 300px;
+	text-align: center;
 }
 
 .watch-selection {
@@ -233,13 +261,13 @@
 	#watchContainerHeader {
 		display: flex;
 		flex-direction: row;
-		align-items: center;
-		height: 250px;
+		align-items: start;
+		/* min-height: 200px; */
 	}
 	
 	#header-majorContainer {
 		width: 40%;
-		height: 100%;
+		height: 300px;
 		
 		padding: 0;
 	}
@@ -250,6 +278,10 @@
 
 		padding-top: 10px;
 		padding-bottom: 10px;
+	}
+	
+	#header-imageContainer .imageRow {
+		width: 35%;
 	}
 
 	#watchListOptions {
@@ -267,8 +299,8 @@
 	
 	#watchListOptions button {
 
-		width: 110px;
-		height: 30px;
+		width: 150px;
+		height: 50px;
 		/* border: 0; */
 
 		/* background: #363946; /* GUNMETAL */
@@ -293,8 +325,12 @@
 		align-items: start;
 
 		width: 60%;
-		height: 100%;
+		/* height: 100%; */
 		/* scroll-snap-type: x mandatory; */
+	}
+	
+	#mainDetailsContainer h1 {
+		text-align: left;
 	}
 	
 	#descriptionContainer {
@@ -313,19 +349,33 @@
 } /* widescreen mobile orientation */
 
 @media only screen and (min-width: 768px) {
+	
 	#watchContainerHeader {
 		display: flex;
 		flex-direction: row;
-		align-items: center;
+		align-items: start;
+		
+		/* min-height: 400px; */
 	}
 	
 	#header-majorContainer {
-		width: 40%;
-		height: 90%;
 		
-		padding: 0;
+		justify-content: center;
+		width: 40%;
+		height: 450px;
+		
+		/* padding: 0;
+		padding */
 	}
 	
+	#header-imageContainer {
+		min-height: 300px;
+	}
+	
+	#header-imageContainer .imageRow {
+		width: 65%;
+	}
+
 	#header-detailsContainer {
 		display: flex;
 		flex-direction: column;
@@ -333,7 +383,7 @@
 		align-items: start;
 
 		width: 60%;
-		height: 90%;
+		/* height: 90%; */
 		/* scroll-snap-type: x mandatory; */
 	}
 	
@@ -342,6 +392,13 @@
 		padding-left: 0;
 		/* scroll-snap-align: start; */
 	}
+	
+	#mainDetailsContainer {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: start;
+	}
 
 	#descriptionContainer p {
 		text-align: left;
@@ -349,20 +406,33 @@
 	
 	.watch-selection .imgContainer {
 		height: 80%;
+		width: 10%;
+	}
+
+	.watch-selection-body {
+		width: 90%;
 	}
 } /* Tablet mode */
 
+@media only screen and (min-width: 1024px) {
+	#header-imageContainer .imageRow {
+		width: 55%;
+	}
+}
+
 @media only screen and (min-width: 1100px) {
+	
 	#watchContainer {
 		height: 80%;
 	}
 	
 	#header-majorContainer {
-		width: 30%;
+		width: 25%;
+		height: 400px;
 	}
 	
 	#header-detailsContainer {;
-		width: 70%;
+		width: 75%;
 	}
 	
 	.watch-selection-title {
@@ -380,5 +450,9 @@
 	
 	.watch-selection-options button span {
 		display: flex;
+	}
+	
+	#mainDetailsContainer h1 {
+		text-align: left;
 	}
 }

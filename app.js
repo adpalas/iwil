@@ -61,6 +61,30 @@ app.use(function(req, res, next){
 // PROMISES
 // ==========================
 
+function movieSearch(search) {
+	return new Promise(function(resolve, reject){
+		const url 			= 'https://www.omdbapi.com/?s=' + search + '&type=movie&apikey=' + process.env.OMDBKEY,
+			  movieResults 	= [];
+		
+		request(url, function(error, response, body){
+			var searchResults = JSON.parse(body);
+			
+			if(!error && response.statusCode == 200 && searchResults["Response"] !== "False") {
+				searchResults["Search"].forEach(function(movie){
+					if(movie["Poster"] === "N/A") {
+						return;
+					} // Filter results that are missing posters
+					movieResults.push(movie);
+				});
+				resolve(movieResults);
+			} else {
+				console.log(error);
+				reject(searchResults["Error"]);
+			}
+		}); // request call to OMDB for search by 's' parameter
+	}); // create a new promise when this function is run
+} // A promise definition that parses input if needed and makes requests to omdb 
+
 function getMovieDetails(movie){
 	return new Promise(function(resolve, reject){
 		const url = 'https://www.omdbapi.com/?i=' + movie["imdbID"] + '&plot=full&apikey=' + process.env.OMDBKEY;
@@ -81,19 +105,28 @@ function getMovieDetails(movie){
 function findAvailability(movie) {
 	return new Promise(function(resolve, reject){
 		request({
+			method: 'GET',
+			url: "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup",
+			qs: {country: 'US', source_id: movie["imdbID"], source: 'imdb'},
 			headers: {
 				'x-rapidapi-host'	: 'utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com',
 				'x-rapidapi-key'	: process.env.UTELLYKEY,
-				'useQueryString'	: 'true'
-			},
-			uri: "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?country=US&source_id=" + movie["imdbID"] + "&source=imdb",
-			method: 'GET'
+				useQueryString	: true
+			}
+			
 		}, function (error, response, body) {
 				// in addition to parsing the value, deal with possible errors
 				if (error || response.statusCode != 200) return reject(error);
 				try {
-					var movieDetails = JSON.parse(body);
-					resolve(movieDetails);
+					const movieDetails = JSON.parse(body);
+					const availabilityInUS = []// Ran into a new issue with Utelly. Country param is no longer working for some reason. 7/11/2020
+					movieDetails["collection"].locations.forEach(function(movie){
+						if (movie.country[0] === "us") {
+							availabilityInUS.push(movie);
+						}
+					}); // For now, we need to go through the unfiltered results of locations and grab options available in the 'us'.
+						
+					resolve(availabilityInUS);
 				} catch(e) {
 					reject(e);
 				}
@@ -184,53 +217,53 @@ app.get("/", function(req, res){
 
 app.get("/search", function(req, res){
 	const 	search			= req.query.search,
-			url				= 'https://www.omdbapi.com/?s=' + search + '&type=movie&apikey=' + process.env.OMDBKEY,
-			promises		= [],
-			movieResults 	= []
+			searchPromises		= [],
+			detailsPromises		= [];
 	
-	request(url, function(error, response, body){
-		var searchResults = JSON.parse(body);
+	movieSearch(search).then((movieResults) => {
+		const filteredMovieResults = [];
 		
-		if(!error && response.statusCode == 200 && searchResults["Response"] !== "False") {
-			searchResults["Search"].forEach(function(movie){
-				if(movie["Poster"] === "N/A") {
-					return;
-				} // Filter results that are missing posters
-				movieResults.push(movie);
-				promises.push(getMovieDetails(movie));
-			}); // Prepare an evaulation of a list of promises for filtered selection
+		movieResults.forEach((movie) => {	
+			detailsPromises.push(getMovieDetails(movie));
+		}); // Prepare an evaulation of a list of promises for filtered selection
 			
-			Promise.all(promises).then((results) => {
-				
-				var detailList = [];
-				
-				results.forEach((result) => {
-					detailList.push(result["Plot"]);
-				}); // Take the result of each evaluated promise and pass Plot details to the list. The list is in order with the selection order.
-				
-				allWatchLists().then((watchLists) => {
-					res.render("search/index", {search: search, movieResults: movieResults, detailList: detailList, watchLists: watchLists});
-				}).catch(function(err) {
-					console.log("An Error has Occurred. allWatchLists() failed at index route `/search`");
-					console.log(err);
-					req.flash("error", "Oops! There was a problem. Please try again.");
-					res.redirect("/");
-				}); // Nested promise. Need to grab user's watchList for index template to locate all selections that have been added to db. THEN we will render the page.
-				 
+		Promise.all(detailsPromises).then((detailResults) => {
+			var detailList = [];
+			
+			detailResults.forEach((result) => {
+				detailList.push(result["Plot"]);
+			}); // Take the result of each evaluated promise and pass Plot details to the list. The list is in order with the selection order.
+			
+			allWatchLists().then((watchLists) => {
+				res.render("search/index", {search: search, movieResults: movieResults, detailList: detailList, watchLists: watchLists});
 			}).catch(function(err) {
-				console.log("An Error has Occurred. getMovieDetails() failed at route index `/search`");
+				console.log("An Error has Occurred. allWatchLists() failed at index route `/search`");
 				console.log(err);
 				req.flash("error", "Oops! There was a problem. Please try again.");
 				res.redirect("/");
-			});	// Grab some plot details for each selection and pass to the template for each selection's description. The INDEX page is rendered inside the last .then of the promise chain
-		} else {
-			console.log(error);
-			console.log(searchResults["Error"]);
-			req.flash("error", searchResults["Error"]);
+			}); // Nested promise. Need to grab user's watchList for index template to locate all selections that have been added to db. THEN we will render the page.
+
+		}).catch(function(err) {
+			console.log("An Error has Occurred. getMovieDetails() failed at route index `/search`");
+			console.log(err);
+			req.flash("error", "Oops! There was a problem. Please try again.");
 			res.redirect("/");
-			// res.render("search/index", {search: search, movieResults: [], detailList: [], watchLists: []});
-		} // Response is accepted only if error is null AND status === 200
-	}); // The request made to OMDb. Callback function will handle a successful render
+		});	// Grab some plot details for each selection and pass to the template for each selection's description. The INDEX page is rendered inside the last .then of the promise chain
+	}).catch(function(err) {
+		console.log("An Error has Occurred. movieSearch() failed at route index `/search`");
+		console.log(err);
+		
+		if(err === "Movie not found!") {
+			req.flash("error", err);
+			res.redirect("/");
+		} else if (err === "Too many results."){
+			req.flash("error", "Please refine your search and try again.");
+			res.redirect("/");
+		} else {
+			req.flash("error", "Oops! There was a problem. Please try again.");
+			res.redirect("/");
+		}
+	});
 }); // INDEX: Handles a get request that is using the OMDb api to search for movies based on movie titles, this utilizes the `mainSearchBar` form element for making the request.
 
 app.get("/search/:id", function(req, res){
@@ -239,7 +272,7 @@ app.get("/search/:id", function(req, res){
 	getMovieDetails(movie).then((results) => {
 		
 		findAvailability(movie).then((response) => {
-			const providers = response["collection"].locations;
+			const providers = response;
 			
 			allWatchLists().then((watchLists) => {
 				res.render("search/show", {results: results, providers: providers, watchLists: watchLists}); 

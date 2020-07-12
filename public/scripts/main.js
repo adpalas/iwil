@@ -114,21 +114,21 @@ if ($("#resultsContainer").length && $(window).outerWidth() > 768){ // Temporary
 				} // If the element is completely within bounds of the window, fade it in
 			}); // For every element that contains the .fade class
 			
-			$("#scrollRight").each(function(){
-				if(resultsContentEnd >= endOffset) {
-					$(this).fadeOut();
-				} else {
-					$(this).fadeIn();
-				}
-			}); // Hide/Show the scrollRight button depending on the position of the scroll offset
+			// $("#scrollRight").each(function(){
+			// 	if(resultsContentEnd === endOffset) {
+			// 		$(this).fadeOut();
+			// 	} else {
+			// 		$(this).fadeIn();
+			// 	}
+			// }); // Hide/Show the scrollRight button depending on the position of the scroll offset
 			
-			$("#scrollLeft").each(function(){
-				if(resultsContentPosition === 0) {
-					$(this).fadeOut();
-				} else {
-					$(this).fadeIn();
-				}
-			}); // Hide/Show the scrollLeft button depending on the position of the scroll offset
+			// $("#scrollLeft").each(function(){
+			// 	if(resultsContentPosition === 0) {
+			// 		$(this).fadeOut();
+			// 	} else {
+			// 		$(this).fadeIn();
+			// 	}
+			// }); // Hide/Show the scrollLeft button depending on the position of the scroll offset
 		}).scroll();
 		
 		$("#scrollLeft").click(function(){

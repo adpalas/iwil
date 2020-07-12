@@ -154,7 +154,7 @@ nav {
 	top: 0;
 	left: 0;
 	
-	z-index: 1;
+	z-index: 2;
 }
 
 #navSearchBarDropdown {
@@ -164,7 +164,7 @@ nav {
 	
 	border-bottom: 1px solid #8B8C89; /* MIDDLE GREY */
 	
-	background: #363946;  /* GUNMETAL */
+	background: #010400; /* RICH BLACK */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 	
 	position: fixed;
@@ -209,7 +209,7 @@ nav {
 	
 	border-bottom: 1px solid #8B8C89; /* MIDDLE GREY */
 	
-	background: #363946;  /* GUNMETAL */
+	background: #010400; /* RICH BLACK */
 	color: #EAF2EF; /* AZURE (X11/web color) */
 	
 	position: fixed;
@@ -320,7 +320,7 @@ nav {
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	height: 5%;
+	height: 10%;
 	
 	position: absolute;
 	top: 10%;
@@ -341,11 +341,11 @@ nav {
 }
 
 .success {
-	background: #3DDC97A0; /*MEDIUM AQUAMARINE W/ OPACITY */
+	background: #3DDC97; /*MEDIUM AQUAMARINE W/ OPACITY */
 }
 
 .error {
-	background: #FF495CA0; /* SIZZLING RED W/ OPACITY */
+	background: #FF495C; /* SIZZLING RED W/ OPACITY */
 }
 
 #footer {
