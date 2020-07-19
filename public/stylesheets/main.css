@@ -250,6 +250,7 @@ nav {
 	justify-content: center;
 	align-items: center;
 	
+	width: 100%;
 	height: 100%;
 	
 	color: #EAF2EF; /* AZURE (X11/web color) */
@@ -327,6 +328,8 @@ nav {
 	left: 0;
 	
 	z-index: 1;
+	
+	opacity: 1;
 }
 
 #popupAlert h1 {

@@ -55,8 +55,13 @@ function addToWatchlist(button) {
 	}); // Create an onclick event on buttons designated for adding selections to watchlists
 } // A method that will initilize onclick events for buttons designated for adding selections to watchlists.
 
+if ($("#popupAlert").length) {
+	$("#popupAlert").each(function() {
+		if ($(this).css("opacity")==1) {$(this).delay(3000).fadeTo(1000,0);}
+	});
+} // Hide flash notifications after a period of time
+
 if ($("#searchButton").length){
-	console.log("searchButton Found!");
 	$("#searchButton").click(function() {
 		
 		if( $("#navSearchBarDropdown").css('display') === 'none') {
@@ -90,7 +95,7 @@ if ($("#menuButton").length){
 	});
 }
 
-if ($("#resultsContainer").length && $(window).outerWidth() > 768){ // Temporary second condition value. This jquery is causing bugs with mobile versions
+if ($("#resultsContainer").length){ // Temporary second condition value. This jquery is causing bugs with mobile versions
 	$("#resultsContainer").ready(function() {
 		const selectionCount 		= $('.selection').length,
 			  selectionWidth 		= $('.selection').outerWidth(),
@@ -103,16 +108,16 @@ if ($("#resultsContainer").length && $(window).outerWidth() > 768){ // Temporary
 				  resultsContentEnd			= resultsContentPosition + $(this).innerWidth();
 			
 			
-			$(".fade").each(function() {
-				/* Check the location of each desired element */
-				var objectEnd = $(this).offset().left - selectionWidth; // Not too sure why when grabbing the offset of the right most selection in view needs subtracting.
+			// $(".fade").each(function() {
+			// 	/* Check the location of each desired element */
+			// 	var objectEnd = $(this).offset().left - selectionWidth; // Not too sure why when grabbing the offset of the right most selection in view needs subtracting.
 				
-				if (objectEnd < resultsContentEnd) { //object comes into view (scrolling right)
-					if ($(this).css("opacity")==0) {$(this).fadeTo(500,1);}
-				} else { //object goes out of view (scrolling left)
-					if ($(this).css("opacity")==1) {$(this).fadeTo(500,0);}
-				} // If the element is completely within bounds of the window, fade it in
-			}); // For every element that contains the .fade class
+			// 	if (objectEnd < resultsContentEnd) { //object comes into view (scrolling right)
+			// 		if ($(this).css("opacity")==0) {$(this).fadeTo(500,1);}
+			// 	} else { //object goes out of view (scrolling left)
+			// 		if ($(this).css("opacity")==1) {$(this).fadeTo(500,0);}
+			// 	} // If the element is completely within bounds of the window, fade it in
+			// }); // For every element that contains the .fade class
 			
 			// $("#scrollRight").each(function(){
 			// 	if(resultsContentEnd === endOffset) {

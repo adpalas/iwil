@@ -76,12 +76,11 @@
 							<% providers.forEach(function(provider) {%>
 								<a class="button" href="<%= provider["url"]%>">
 									<div class="iconContainer">
-										<!-- < % if(provider["display_name"] === "Disney+") {% >  -->
-											<!-- Disney plus's icon returns a 404..  -->
-											<!-- <h4>< %= provider["display_name"] % ></h4>
-										< %} else {% > -->
-										<img src="<%= provider["icon"]%>" alt="<%= provider["display_name"]%>">
-										<!-- < % } % > -->
+										<% if(provider["icon"] === null) {%>
+											<h4><%= provider["display_name"] %></h4>
+										<%} else {%>
+											<img src="<%= provider["icon"]%>" alt="<%= provider["display_name"]%>">
+										<%}%>
 									</div>
 								</a>
 							<%});%>

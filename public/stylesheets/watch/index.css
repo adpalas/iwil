@@ -54,6 +54,11 @@
 	
 }
 
+#addList:hover #iconContainer {
+	opacity: 75%;
+	transition: opacity 0.1s linear 0s;
+}
+
 .watchlist-selection-title {
 	height: 60px;
 	margin-top: 5px;
@@ -208,5 +213,9 @@
 	
 	#addList, .watchlist-selection {
 		width: 15%;
+	}
+	
+	.watchlist-selection:hover .watchlist-selection-title a{
+		text-decoration: underline; /* AZURE (X11/web color) */
 	}
 }

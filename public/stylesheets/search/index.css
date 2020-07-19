@@ -32,13 +32,34 @@
 }
 
 .scrollContainer {
-	display: none;
+	/* display: block; */
+	height: 100%;
+	width: 10%;
+
+	background: #010400; /* RICH BLACK */
+	opacity: 0.25;
+}
+
+#scrollLeft, #scrollRight {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	height: 100%;
+	margin: 0;
+	padding: 0 5px;
+	background: #010400; /* RICH BLACK */
+	color: #EAF2EF; /* AZURE (X11/web color) */
+
+	font-size: 25px;
+	text-decoration: none;
 }
 
 #resultsContent {
 	display: flex;
 
-	width: 100%;
+	width: 80%;
 	height: 100%;
 
 	overflow-x: auto;
@@ -87,8 +108,8 @@
 	display: flex;
 	justify-content: center;
 	width: 325px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
-	height: 100%;
-	padding: 10px 0;
+	height: 90%;
+	padding-top: 10px;
 }
 
 .selection-hasHover:hover .imgContainer {
@@ -155,29 +176,18 @@
 	font-size: 15px;
 }
 
-.selection-options button:hover {
-	border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
-	font-size: 18px;
-	transition: font-size 0.1s linear 0s;
-}
-
 .selection-options button a i, .selection-options button a span {
 	font-size: 15px;
-}
-
-.selection-options button:hover a i, .selection-options button:hover a span {
-	font-size: 18px;
-	transition: font-size 0.1s linear 0s;
 }
 
 @media only screen and (min-width: 320px) {
 
 	.selection-hasHover:hover {
-		width: 320px;
+		width: 260px;
 	}
 
 	.selection .imgContainer {
-		width: 320px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+		width: 260px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
 	}
 	
 	.selection-hasHover:hover .imgContainer {
@@ -194,44 +204,44 @@
 @media only screen and (min-width: 360px) {
 
 	.selection-hasHover:hover {
-		width: 360px;
+		width: 290px;
 	}
 
 	.selection .imgContainer {
-		width: 360px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+		width: 290px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
 	}
 }
 
 @media only screen and (min-width: 375px) {
 
 	.selection-hasHover:hover {
-		width: 375px;
+		width: 300px;
 	}
 
 	.selection .imgContainer {
-		width: 375px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+		width: 300px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
 	}
 }
 
 @media only screen and (min-width: 411px) {
 
 	.selection-hasHover:hover {
-		width: 411px;
+		width: 331px;
 	}
 
 	.selection .imgContainer {
-		width: 411px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+		width: 331px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
 	}
 }
 
 @media only screen and (min-width: 414px) {
 
 	.selection-hasHover:hover {
-		width: 414px;
+		width: 334px;
 	}
 
 	.selection .imgContainer {
-		width: 414px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+		width: 334px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
 	}
 	
 	.selection-hasHover:hover .imgContainer {
@@ -442,33 +452,11 @@
 	}
 	
 	.scrollContainer {
-		display: block;
-		height: 100%;
 		width: 60px;
-		
-		background: #010400; /* RICH BLACK */
-		opacity: 0.25;
 	}
 
 	#scrollLeft, #scrollRight {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		
-		height: 100%;
-		margin: 0;
-		padding: 0 5px;
-		background: #010400; /* RICH BLACK */
-		color: #EAF2EF; /* AZURE (X11/web color) */
-		
 		font-size: 40px;
-		text-decoration: none;
-	}
-
-	.scrollButtonfade {
-		opacity: 0.25;
-		transition: opacity 0.2s linear 0s;
 	}
 
 	#scrollLeft:hover, #scrollRight:hover {
@@ -476,6 +464,7 @@
 	}
 	
 	#resultsContent {
+		width: 100%;
 		scroll-snap-type: none;
 	}
 	
@@ -529,5 +518,9 @@
 	
 	.selection-options button a i, .selection-options button a span {
 		font-size: 18px;
+	}
+	
+	.selection-options button:hover {
+		border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
 	}
 }

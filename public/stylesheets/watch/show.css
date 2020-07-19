@@ -82,8 +82,18 @@
 	
 }
 
+#watchListOptions button:hover {
+	opacity: 1;
+	transition: opacity 0.1s linear 0s;
+}
+
 #watchListOptions form {
 	margin-left: 10px;
+}
+
+#watchListOptions form:hover {
+	opacity: 1;
+	transition: opacity 0.1s linear 0s;
 }
 
 #header-detailsContainer {
@@ -446,6 +456,10 @@
 	
 	.watch-selection-options button, .watch-selection-options a {
 		font-size: 20px;
+	}
+	
+	.watch-selection-options button:hover, .watch-selection-options form a:hover {
+		border: 1px solid #EAF2EF; /* AZURE (X11/web color) */
 	}
 	
 	.watch-selection-options button span {

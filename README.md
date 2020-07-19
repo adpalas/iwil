@@ -1,10 +1,10 @@
-# I.W.I.L. - I'll Watch it Later
+# IWIL - I'll Watch it Later
 
-An web application that utilizes web api to retrieve movie details and whether they are availble on streaming and/or web store plaforms. Successful searches can be selected and saved to a watchlist if desired.
+A web application that retrieves movie information including its availability on various streaming and/or web store plaforms. Searches can also be selected and saved on a user account.
 
 ### Prerequisites
 
-* This application was developed on an Ubuntu (18.04 LTS) environment. 
+* This application was developed and tested on an Ubuntu (18.04 LTS) environment. 
 
 * Utilizes Node.js and MongoDb
 
@@ -14,7 +14,7 @@ An web application that utilizes web api to retrieve movie details and whether t
 ## Built With
 
 * [Express](https://expressjs.com/en/4x/api.html) - The web framework used
-* [Node](https://nodejs.org/docs/latest-v10.x/api/) - Dependency Management
+* [Node](https://nodejs.org/docs/latest-v10.x/api/) - npm packages include: request, passport, mongoose and more. See package.json for full list
 * [MongoDB](https://docs.mongodb.com/manual/) - Database
 
 * [OMDB](https://www.omdbapi.com/) - Web API
@@ -26,8 +26,4 @@ An web application that utilizes web api to retrieve movie details and whether t
 
 ## Acknowledgments
 
-* Thank you to [Colt Steele](https://www.udemy.com/user/coltsteele/) for teaching me the fundamentals of web development and how to get started through [Udemy](https://www.udemy.com/).
-
-* Decided to further build upon a simple project that taught how to utilize web api in a web application from his course. This project helped me gain more experience in building my own UI and utlizing additional api as well as solidifying the practices shown from the course.
-
-* I also love watching movies and believe this can help me better locate and organize my favorite films that are available on the web.
+* Thank you to [Colt Steele](https://www.udemy.com/user/coltsteele/) for teaching me the fundamentals of web development and how to get started through [Udemy](https://www.udemy.com/course/the-web-developer-bootcamp/).
