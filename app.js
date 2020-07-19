@@ -27,7 +27,15 @@ const	indexRoutes		= require("./routes/index"),
 
 dotenv.config(); // Utilize the .env file for all sensative url's and api keys
 
-mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true, useUnifiedTopology: true}); // Create or Connect to db `iwil_*`
+mongoose.connect(process.env.DATABASEURL, 
+{ 
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+}).then(() => {
+	console.log("Connected to DB");
+}).catch(err => {
+	console.log("ERROR", err.message);
+}); // Create or Connect to db `iwil_*`
 
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
