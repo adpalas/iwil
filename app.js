@@ -4,7 +4,6 @@
 
 const 	express 				= require("express"),
 		app 					= express(),
-		request 				= require("request"),
 		methodOverride			= require("method-override"),
 		bodyParser				= require("body-parser"),
 		mongoose 				= require("mongoose"),
@@ -30,7 +29,8 @@ dotenv.config(); // Utilize the .env file for all sensative url's and api keys
 mongoose.connect(process.env.DATABASEURL, 
 { 
 	useNewUrlParser: true,
-	useUnifiedTopology: true
+	useUnifiedTopology: true,
+	useCreateIndex: true
 }).then(() => {
 	console.log("Connected to DB");
 }).catch(err => {
