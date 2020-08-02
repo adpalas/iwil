@@ -49,7 +49,7 @@ router.get("/", function(req, res){
 		console.log(err);
 		
 		if(err === "Movie not found!") {
-			req.flash("error", err);
+			req.flash("error", "Movie not found for search '" + search + "'");
 			res.redirect("/");
 		} else if (err === "Too many results."){
 			req.flash("error", "Please refine your search and try again.");

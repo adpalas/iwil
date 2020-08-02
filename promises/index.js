@@ -26,12 +26,17 @@ promiseObj.movieSearch = function(search) {
 			  movieResults 	= [];
 		
 		axios.get(url).then(function (searchResults) {
-			searchResults.data["Search"].forEach(function(movie){
-				if(movie["Poster"] === "N/A") {
-					return;
-				} // Filter results that are missing posters
-				movieResults.push(movie);
-			});
+			try {
+				searchResults.data["Search"].forEach(function(movie){
+					if(movie["Poster"] === "N/A") {
+						return;
+					} // Filter results that are missing posters
+					movieResults.push(movie);
+				});
+			} catch(err) {
+				console.log("No results found for search: " + search);
+				reject("Movie not found!");
+			}
 			
 			if(movieResults.length === 0) {
 				reject("Movie not found!");
