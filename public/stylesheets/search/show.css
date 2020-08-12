@@ -308,7 +308,7 @@
 	}
 }
 
-@media only screen and (min-width: 1100px) {
+@media (min-width: 1100px) and (min-height: 768px) {
 	#detailsSection {
 		height: 80%;
 	}
