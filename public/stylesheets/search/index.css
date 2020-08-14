@@ -263,12 +263,17 @@
 	.selection {
 		display: flex;
 		flex-direction: row;
-		
+		justify-content: center;
+		width: auto;
 		margin: 0 10px;
 	}
 	
 	.selection .imgContainer {
 		width: 180px; /* when scrolling along x axis inside a container, scrolled items need a width in pixels not percents */
+	}
+	
+	.selection-hasHover:hover {
+		width: auto;
 	}
 	
 	.selection-hasHover:hover .imgContainer {
@@ -318,6 +323,12 @@
 
 		color: #EAF2EF; /* AZURE (X11/web color) */
 		font-size: 15px;
+	}
+}
+
+@media (min-height: 420px) and (max-height: 768px) {
+	.selection {
+		width: unset;
 	}
 }
 
