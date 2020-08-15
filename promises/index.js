@@ -22,7 +22,7 @@ const promiseObj = {}
 
 promiseObj.movieSearch = function(search) {
 	return new Promise(function(resolve, reject){
-		const url 			= 'https://www.omdbapi.com/?s=' + search + '&type=movie&apikey=' + process.env.OMDBKEY,
+		const url 			= 'https://www.omdbapi.com/?s=' + search.trim() + '&type=movie&apikey=' + process.env.OMDBKEY,
 			  movieResults 	= [];
 		
 		axios.get(url).then(function (searchResults) {
